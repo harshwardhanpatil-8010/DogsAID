@@ -6,33 +6,30 @@ struct AnaphylaxisView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "RECOGNIZE ANAPHYLAXIS",
-            instruction: "Face swelling, hives, vomiting, collapse, breathing distress (bee sting/vaccine). " +
-                        "**5-30 min onset.**",
-            audio: "Swelling, hives, collapse after sting equals anaphylaxis.",
+            title: "CHECK FOR SWELLING",
+            instruction: "Look for rapid facial swelling, hives, or sudden collapse. Check for difficulty breathing.",
+            audio: "Look for sudden swelling on the face, hives, or collapse. Check if the dog is struggling to breathe.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.75, green: 0.20, blue: 0.75)
         ),
         InfoStep(
-            title: "Remove Stinger",
-            instruction: "Scrape with credit card (NOT tweezers). Wash area. " +
-                        "Benadryl 1mg/lb if prescribed.",
-            audio: "Remove stinger with edge. Give Benadryl if prescribed.",
+            title: "REMOVE STINGER",
+            instruction: "If caused by a sting, scrape the stinger away with a credit card. DO NOT use tweezers.",
+            audio: "Scrape the stinger away with a credit card. Do not use tweezers.",
             illustrationIcon: "creditcard",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Airway Management",
-            instruction: "Elevate head. Monitor breathing. **Epipen if prescribed.**",
-            audio: "Elevate head. Monitor breathing closely.",
+            title: "MONITOR AIRWAY",
+            instruction: "Keep the dog's head elevated and monitor breathing closely. Anaphylaxis can close the airway.",
+            audio: "Keep the head up and monitor breathing. The airway could close quickly.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "VET EMERGENCY",
-            instruction: "**SHOCK imminent.** IV epinephrine, steroids, fluids. " +
-                        "Airway swelling → suffocation.",
-            audio: "Veterinary emergency immediately. Airway swelling likely.",
+            title: "CALL VET NOW",
+            instruction: "Transport the dog to the vet immediately for life-saving medication. This is a critical emergency.",
+            audio: "Call the vet right now. Your dog needs immediate medication to open the airway.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.75, green: 0.15, blue: 0.75)
         )

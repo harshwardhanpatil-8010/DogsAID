@@ -5,50 +5,44 @@ struct BlueGumsView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "EMERGENCY: Check Gums",
-            instruction: "Lift lip gently and check gum color. Normal = pink/salmon. " +
-                        "Blue/purple = oxygen starvation = LIFE-THREATENING.",
-            audio: "Check gum color immediately. Blue means emergency.",
+            title: "OXYGEN EMERGENCY",
+            instruction: "Blue or purple gums mean the dog is not getting enough oxygen. This is a critical emergency.",
+            audio: "Blue or purple gums mean your dog is suffocating. This is a critical emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
-            title: "Keep Dog Calm & Still",
-            instruction: "Stay calm yourself. Speak softly. Keep dog lying down or sitting. " +
-                        "Panic increases oxygen demand.",
+            title: "KEEP CALM",
+            instruction: "Stay calm and speak softly. Panic increases the dog's oxygen demand and worsens the crisis.",
             audio: "Keep your dog calm and still. Stay calm yourself.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Fresh Air Immediately",
-            instruction: "Open ALL windows or doors. Move to fresh air area. " +
-                        "Remove from smoke/closed spaces.",
+            title: "FRESH AIR",
+            instruction: "Immediately move the dog to an area with fresh air. Open windows if you are indoors or in a car.",
             audio: "Get fresh air immediately. Open all windows.",
             illustrationIcon: "wind",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "Loosen Collar/Harness",
-            instruction: "Gently loosen tight collar, harness, or clothing. " +
-                        "Do NOT remove if airway blocked.",
-            audio: "Loosen collar or harness gently.",
+            title: "LOOSEN COLLAR",
+            instruction: "Gently loosen any tight collars, harnesses, or clothing that might restrict breathing.",
+            audio: "Loosen any tight collar or harness gently.",
             illustrationIcon: "figure.walk.circle.fill",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "Monitor Breathing",
-            instruction: "Watch chest movement. Listen for gasping/struggling. " +
-                        "Count breaths per minute (normal: 10-30).",
-            audio: "Monitor breathing rate and effort closely.",
+            title: "MONITOR BREATHING",
+            instruction: "Watch for gasping or heavy use of the abdominal muscles to breathe.",
+            audio: "Monitor breathing effort very closely.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.30, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "VET IMMEDIATELY",
-            instruction: "Blue/purple gums + breathing struggle/panic = EMERGENCY. " +
-                        "Transport to vet NOW. Call ahead if possible.",
-            audio: "This is a veterinary emergency. Go immediately.",
+            title: "TRANSPORT IMMEDIATELY",
+            instruction: "Do not delay. Keep the dog calm and drive to the nearest vet for oxygen therapy.",
+            audio: "Drive to the vet immediately for oxygen. Keep the dog as calm as possible.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

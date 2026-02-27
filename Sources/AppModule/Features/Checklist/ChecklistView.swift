@@ -208,14 +208,13 @@ struct ChecklistView: View {
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
+                        ToolbarItem(placement: .cancellationAction) {
                             Button {
                                 selectedInfoItem = nil
                             } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.title3)
-                                    .foregroundColor(.secondary)
+                                Image(systemName: "xmark")
                             }
+                            .accessibilityLabel("Close")
                         }
                     }
                     .presentationDetents([.medium, .large])

@@ -1,15 +1,12 @@
 import SwiftUI
 
-// MARK: - EmergencyHomeView
-
 struct EmergencyHomeView: View {
 
     @State private var searchText = ""
     @State private var intentRoute: EmergencyRoute?
+    @State private var showInfoSheet = false
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
-    // MARK: Derived State
 
     private var searchResults: [EmergencyTopicModel] {
         guard !searchText.isEmpty else { return [] }
@@ -17,8 +14,6 @@ struct EmergencyHomeView: View {
             $0.title.localizedCaseInsensitiveContains(searchText)
         }
     }
-
-    // MARK: Body
 
     var body: some View {
         List {
@@ -28,16 +23,34 @@ struct EmergencyHomeView: View {
         .listStyle(.insetGrouped)
         .navigationTitle("Emergencies")
         .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .inline : .large)
-        .searchable(text: $searchText, prompt: "Search emergencies…")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showInfoSheet = true
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+                .accessibilityLabel("App information")
+            }
+        }
+        .searchable(
+            text: $searchText,
+            prompt: "What’s happening?"
+        )
         .scrollDismissesKeyboard(.interactively)
-        .onChange(of: searchText) { oldValue, newValue in
+        .sheet(isPresented: $showInfoSheet) {
+            NavigationStack {
+                InfoView()
+            }
+            .presentationDetents([.large])
+            .presentationDragIndicator(.hidden)
+        }
+        .onChange(of: searchText) { _, newValue in
             handleSearchChange(newValue)
         }
-
         .navigationDestination(for: EmergencyRoute.self) { route in
             EmergencyRouter.destination(for: route)
         }
-        
         .navigationDestination(isPresented: Binding(
             get: { intentRoute != nil },
             set: { if !$0 { intentRoute = nil } }
@@ -47,8 +60,6 @@ struct EmergencyHomeView: View {
             }
         }
     }
-
-    // MARK: - Sections
 
     @ViewBuilder
     private var heroImageSection: some View {
@@ -91,14 +102,14 @@ struct EmergencyHomeView: View {
     private var emptySearchSection: some View {
         Section {
             VStack(spacing: 12) {
-                Image(systemName: "magnifyingglass")
+                Image(systemName: "exclamationmark.triangle.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundStyle(.tertiary)
 
-                Text("No Results")
+                Text("Not sure what’s wrong?")
                     .font(.system(size: 20, weight: .semibold))
 
-                Text("No results for \"\(searchText)\".\nTry a different search term.")
+                Text("Try typing what you see.\nExample: collapsed, breathing trouble, bleeding.")
                     .font(.system(size: 14))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -110,14 +121,11 @@ struct EmergencyHomeView: View {
         }
     }
 
-    // MARK: - Intent Handling
-
     private func handleSearchChange(_ newValue: String) {
         guard let intent = EmergencyIntentResolver.resolve(from: newValue) else { return }
         intentRoute = EmergencyIntentResolver.route(for: intent)
+        searchText = ""
     }
-
-    // MARK: - Helpers
 
     private func sectionHeader(_ title: String) -> some View {
         Text(title)
@@ -128,16 +136,20 @@ struct EmergencyHomeView: View {
     }
 }
 
-// MARK: - TopicListRow
-
-
 struct TopicListRow: View {
     let topic: EmergencyTopicModel
 
     var body: some View {
         NavigationLink(value: topic.route) {
             HStack(spacing: 14) {
-                topicIcon
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(topic.iconColor)
+                        .frame(width: 32, height: 32)
+                    Image(systemName: topic.icon)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
                 Text(topic.title)
                     .font(.system(size: 17))
                     .foregroundStyle(.primary)
@@ -145,20 +157,7 @@ struct TopicListRow: View {
             .padding(.vertical, 2)
         }
     }
-
-    private var topicIcon: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(topic.iconColor)
-                .frame(width: 32, height: 32)
-            Image(systemName: topic.icon)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(.white)
-        }
-    }
 }
-
-// MARK: - Preview
 
 #Preview {
     NavigationStack {

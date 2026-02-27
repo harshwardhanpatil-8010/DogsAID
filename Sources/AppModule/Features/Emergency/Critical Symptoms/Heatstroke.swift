@@ -5,42 +5,37 @@ struct HeatstrokeView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "EMERGENCY: Cool IMMEDIATELY",
-            instruction: "Move to shade/AC. Wet body (NOT head) with **COOL** water. " +
-                        "Fan blowing. Wet groin/armpits/ears/paws.",
-            audio: "Cool immediately with cool water and fan. Avoid head.",
+            title: "MOVE TO SHADE",
+            instruction: "Immediately move the dog to a cool, shaded area. Use a fan if possible.",
+            audio: "Move your dog to a cool, shaded area immediately.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.98, green: 0.45, blue: 0.10)
         ),
         InfoStep(
-            title: "Cool Water Only",
-            instruction: "**COOL tap water** (NOT ice/cold). Soak towels, replace often. " +
-                        "Ice causes shock. Alcohol dangerous.",
-            audio: "Cool tap water only. No ice or alcohol.",
+            title: "COOL GENTLY",
+            instruction: "Soak the coat with lukewarm water. DO NOT use ice or freezing water as it causes dangerous shock.",
+            audio: "Wet the fur with lukewarm water. Do not use ice or freezing water.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "Monitor Temperature",
-            instruction: "Rectal temp >104°F = severe. Goal: <103°F. " +
-                        "Continue cooling until 103°F, then transport.",
-            audio: "Cool until under 103 degrees. Then go to vet.",
+            title: "TARGET TEMPERATURE",
+            instruction: "Aim to cool the dog until their temperature reaches 103°F. Stop active cooling once this target is reached.",
+            audio: "Cool the dog until their temperature is 103 degrees, then stop.",
             illustrationIcon: "thermometer.high",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Small Water Sips",
-            instruction: "Offer ice chips/small sips ONLY if alert. " +
-                        "No gulping/large volumes.",
-            audio: "Small water sips only if conscious.",
+            title: "SMALL SIPS ONLY",
+            instruction: "Offer small sips of water or ice chips ONLY if the dog is alert. Do not force them to drink.",
+            audio: "Give small sips of water only if the dog is conscious.",
             illustrationIcon: "cup.and.saucer.fill",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "VET EMERGENCY NOW",
-            instruction: "**>104°F = organ damage.** Internal bleeding/coagulation failure. " +
-                        "IV fluids/antibiotics/shock treatment required.",
-            audio: "Veterinary emergency immediately. Organ damage occurring.",
+            title: "VET CARE MANDATORY",
+            instruction: "Even if the dog seems better, internal organ damage is likely. Professional vet care is mandatory.",
+            audio: "You must see a vet immediately. Internal damage can be fatal even if the dog looks better.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.98, green: 0.25, blue: 0.10)
         )

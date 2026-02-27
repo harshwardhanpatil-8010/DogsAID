@@ -7,42 +7,37 @@ struct SeizuresView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Protect During Seizure",
-            instruction: "Clear area of objects. Do NOT restrain or put hands in mouth. " +
-                        "Time seizure duration (normal: <2 min). Turn lights low.",
-            audio: "Clear area. Do not restrain. Time the seizure duration.",
+            title: "DO NOT RESTRAIN",
+            instruction: "Move furniture away to prevent injury. DO NOT put your hands in or near the dog's mouth.",
+            audio: "Do not restrain the dog. Move objects away to prevent injury. Keep your hands away from the mouth.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.85, green: 0.20, blue: 0.35)
         ),
         InfoStep(
-            title: "Side Position",
-            instruction: "Gently roll dog onto side if safe. Support head on towel. " +
-                        "Keep airway clear. No water/food during seizure.",
-            audio: "Roll onto side gently. Support head. No water during seizure.",
+            title: "POSITION SAFELY",
+            instruction: "Gently roll the dog onto their side if safe. Support the head with a soft towel.",
+            audio: "Gently roll the dog onto their side and support their head.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Monitor & Time",
-            instruction: "Watch breathing, drooling, paddling, urination. " +
-                        "Note duration, clusters, post-seizure behavior.",
-            audio: "Monitor breathing and time exactly. Note all symptoms.",
+            title: "TIME THE SEIZURE",
+            instruction: "Note the exact start and end time. Keep the room dark and quiet to reduce stimulation.",
+            audio: "Note the duration of the seizure. Keep the environment dark and quiet.",
             illustrationIcon: "stopwatch.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "Post-Seizure Recovery",
-            instruction: "Postictal: confusion, blindness, pacing (up to 24h). " +
-                        "Dark quiet room. No stimulation. Offer water when alert.",
-            audio: "Post-seizure confusion normal. Keep dark and quiet.",
+            title: "MONITOR RECOVERY",
+            instruction: "Expect confusion or temporary blindness after the seizure. Keep the dog calm and quiet during recovery.",
+            audio: "Post-seizure confusion is normal. Keep the dog calm and quiet.",
             illustrationIcon: "bed.double.fill",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "VET EMERGENCY",
-            instruction: "**IMMEDIATE VET** if: first seizure, >5 min, clusters, status epilepticus. " +
-                        "Even single short seizure needs neuro exam.",
-            audio: "Vet immediately for first seizure, over five minutes, or clusters.",
+            title: "VET CONSULTATION",
+            instruction: "If the seizure lasts more than 3 minutes, or if multiple seizures occur, go to the vet immediately.",
+            audio: "If the seizure lasts longer than three minutes, or if they happen in clusters, go to the vet now.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

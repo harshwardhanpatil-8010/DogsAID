@@ -3,42 +3,37 @@ import SwiftUI
 struct PregnancyWhelpingEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Recognize Labor",
-            instruction: "Normal labor signs include nesting, restlessness, panting, and a drop in body temperature. " +
-                         "Early labor may last several hours.",
-            audio: "Recognize the normal signs of labor in your dog.",
+            title: "IDENTIFY TROUBLE",
+            instruction: "Seek help if there is more than 2 hours between puppies or 30 minutes of strong straining with no puppy.",
+            audio: "Call the vet if there is more than two hours between puppies or thirty minutes of hard straining.",
             illustrationIcon: "clock.fill",
             illustrationColor: Color(red: 0.55, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "Monitor Contractions",
-            instruction: "Active contractions should produce a puppy within 30 to 60 minutes. " +
-                         "Strong straining for more than one hour without a puppy is an emergency.",
-            audio: "Monitor contractions closely. Prolonged straining is an emergency.",
-            illustrationIcon: "waveform.path.ecg",
-            illustrationColor: Color(red: 0.85, green: 0.35, blue: 0.45)
-        ),
-        InfoStep(
-            title: "Check for Obstruction",
-            instruction: "If you see part of a puppy stuck for more than a few minutes, do not pull forcefully. " +
-                         "Gently support the area and contact a veterinarian immediately.",
-            audio: "Do not pull a stuck puppy. Contact a veterinarian immediately.",
+            title: "GREEN DISCHARGE",
+            instruction: "Dark green discharge BEFORE the first puppy is born indicates an emergency (placental separation).",
+            audio: "Dark green discharge before any puppies are born is an emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         ),
         InfoStep(
-            title: "Watch for Distress",
-            instruction: "Signs of emergency include excessive bleeding, collapse, " +
-                         "green discharge before any puppies are born, or extreme pain.",
-            audio: "Watch for signs of distress or abnormal bleeding.",
+            title: "CHECK FOR OBSTRUCTION",
+            instruction: "If a puppy is partially visible but stuck for more than 5 minutes, DO NOT pull forcefully.",
+            audio: "Do not pull a stuck puppy. Contact a veterinarian immediately.",
+            illustrationIcon: "waveform.path.ecg",
+            illustrationColor: Color(red: 0.85, green: 0.35, blue: 0.45)
+        ),
+        InfoStep(
+            title: "EXCESSIVE BLEEDING",
+            instruction: "Some blood is normal, but heavy, continuous bleeding is a life-threatening emergency for the mother.",
+            audio: "Heavy, continuous bleeding is a life-threatening emergency.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
-            title: "Emergency Vet Care",
-            instruction: "If any abnormal signs occur, transport your dog to an emergency veterinarian immediately. " +
-                         "Delayed care can be life-threatening.",
-            audio: "Go to an emergency veterinarian immediately if complications occur.",
+            title: "EMERGENCY VET CARE",
+            instruction: "If any abnormal signs occur, transport the mother to the vet immediately. Delayed care can be fatal.",
+            audio: "Go to an emergency vet immediately if complications occur.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

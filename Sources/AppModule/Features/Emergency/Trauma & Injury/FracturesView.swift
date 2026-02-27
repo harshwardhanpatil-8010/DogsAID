@@ -5,50 +5,44 @@ struct FracturesView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Assess Injury Severity",
-            instruction: "Look for limping, swelling, pain when touched, or visible deformity. " +
-                        "Check if leg dangles abnormally or won't bear weight.",
+            title: "ASSESS INJURY",
+            instruction: "Look for limping, swelling, or a visible deformity. Check if the leg dangles abnormally or won't bear weight.",
             audio: "Check for limping, swelling, or abnormal leg position.",
             illustrationIcon: "figure.walk",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         ),
         InfoStep(
-            title: "Immobilize Immediately",
-            instruction: "Keep dog calm and still. Use rolled towel/splint along injured leg. " +
-                        "Secure with gauze/vet wrap from toes to above joint (not tourniquet tight).",
-            audio: "Immobilize leg with towel and gauze immediately.",
+            title: "IMMOBILIZE",
+            instruction: "Prevent the dog from moving the injured limb. Do not attempt to \"reset\" the bone.",
+            audio: "Prevent the dog from moving the injured leg. Do not try to fix the bone yourself.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Check Circulation",
-            instruction: "Toes should stay pink/warm. If blue/cold/numb = loosen bandage. " +
-                        "Check every 10 minutes during transport.",
-            audio: "Monitor toe color and temperature every 10 minutes.",
+            title: "MUZZLE IF NEEDED",
+            instruction: "Even gentle dogs may bite when in severe pain. Muzzle if it does not interfere with breathing.",
+            audio: "Use a muzzle if the dog is in pain, but only if they can breathe easily.",
+            illustrationIcon: "hand.raised.fill",
+            illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
+        ),
+        InfoStep(
+            title: "PREVENT DAMAGE",
+            instruction: "Carry the dog or use a sling to prevent them from putting weight on the injury. No jumping or stairs.",
+            audio: "Carry the dog to the car. Do not let them walk on the injury.",
             illustrationIcon: "hand.point.up.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "Prevent Further Damage",
-            instruction: "Carry small dogs. Support large dogs with sling under chest/pelvis. " +
-                        "No jumping, stairs, or running. Crate confinement ideal.",
-            audio: "Carry or support dog. Prevent jumping or running.",
-            illustrationIcon: "hand.raised.fill",
-            illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
+            title: "CHECK FOR BLEEDING",
+            instruction: "If the bone has broken the skin, apply a clean bandage loosely to prevent contamination.",
+            audio: "If there is an open wound, cover it loosely with a clean cloth.",
+            illustrationIcon: "drop.fill",
+            illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
-            title: "X-rays & Surgery Needed",
-            instruction: "All fractures need vet X-rays immediately. Treatment: splint, pins, plates, or surgery. " +
-                        "Pain meds + antibiotics for open fractures.",
-            audio: "Veterinary X-rays and surgery usually required.",
-            illustrationIcon: "stethoscope",
-            illustrationColor: Color(red: 0.30, green: 0.55, blue: 0.85)
-        ),
-        InfoStep(
-            title: "Recovery (6-12 Weeks)",
-            instruction: "Strict rest 8-12 weeks. Physical therapy after 4 weeks. " +
-                        "Monitor for swelling, odor, or bandage slippage.",
-            audio: "Expect 8-12 weeks recovery with strict rest.",
+            title: "EMERGENCY VET CARE",
+            instruction: "All fractures require X-rays and professional treatment immediately. Drive to the vet now.",
+            audio: "Go to the vet immediately for X-rays and pain relief.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
         )

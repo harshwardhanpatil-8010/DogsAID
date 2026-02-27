@@ -23,10 +23,7 @@ final class MetronomeManager {
     func start(bpm: Double) {
         stop()
 
-        // The AVAudioSession is already active and set to .playback by
-        // AudioCueManager. MetronomeManager does NOT override the category —
-        // doing so would reset .mixWithOthers and break TTS coexistence.
-        // We just need the engine running on the existing session.
+
         guard !engine.isRunning else { return }
         do {
             try engine.start()
@@ -52,8 +49,7 @@ final class MetronomeManager {
         timerSrc = nil
         if player.isPlaying { player.stop() }
         if engine.isRunning { engine.stop() }
-        // Do NOT call AVAudioSession.setActive(false) — the session is
-        // shared with AudioCueManager and must remain active.
+
     }
 
     // MARK: - Sound design

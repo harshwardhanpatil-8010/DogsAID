@@ -3,43 +3,37 @@ import SwiftUI
 struct BreathingDifficultyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Stay Calm",
-            instruction: "Remain calm and keep your dog relaxed. " +
-                         "Anxiety can worsen coughing or gagging. Speak softly and avoid sudden movements.",
-            audio: "Stay calm and keep your dog relaxed.",
+            title: "REDUCE STRESS",
+            instruction: "Keep the dog still and calm. Do not force the dog into any specific position.",
+            audio: "Keep your dog very calm. Do not force them to move or change positions.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.90, green: 0.60, blue: 0.10)
         ),
         InfoStep(
-            title: "Observe Breathing",
-            instruction: "Watch closely to see if your dog can breathe normally. " +
-                         "Occasional coughing is different from constant distress. " +
-                         "If your dog is collapsing, turning blue, or unable to breathe, treat this as an emergency.",
-            audio: "Observe your dog’s breathing carefully.",
+            title: "OBSERVE BREATHING",
+            instruction: "Watch for labored breathing, gasping, or using the belly to breathe. These are signs of a major emergency.",
+            audio: "Watch for gasping or heavy breathing effort.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
-            title: "Check the Mouth",
-            instruction: "If your dog allows, gently open the mouth and look for visible objects, foam, or swelling. " +
-                         "Do not force the mouth open or insert fingers blindly.",
-            audio: "Check your dog’s mouth only if it is safe to do so.",
+            title: "CHECK GUM COLOR",
+            instruction: "Check if the gums are blue or purple, which indicates a severe lack of oxygen.",
+            audio: "Check if the gums are blue or purple.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
-            title: "Allow Coughing",
-            instruction: "If your dog is coughing but still breathing, allow them to continue coughing. " +
-                         "Coughing is often the body’s way of clearing irritation.",
-            audio: "If your dog is breathing, allow coughing to continue.",
+            title: "ALLOW COUGHING",
+            instruction: "If the dog is coughing but still breathing, allow them to continue. Do not reach into the throat.",
+            audio: "If the dog can breathe, let them cough.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.55, green: 0.75, blue: 0.95)
         ),
         InfoStep(
-            title: "Contact the Vet",
-            instruction: "If coughing or gagging persists, worsens, or is accompanied by lethargy or collapse, " +
-                         "contact your veterinarian immediately.",
-            audio: "Contact your veterinarian if symptoms continue or worsen.",
+            title: "SEEK VET CARE",
+            instruction: "Labored breathing requires immediate veterinary intervention. Transport the dog to the vet now.",
+            audio: "If your dog is struggling to breathe, go to the vet immediately.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

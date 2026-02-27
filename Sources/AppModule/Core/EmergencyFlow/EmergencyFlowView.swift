@@ -151,10 +151,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
             }
             .background(Color(.systemBackground))
         }
-        // ── Inject audio-stop action into the environment ─────────────────
-        // Any child view (CPRCycleView, future interactive views) can call
-        // stopEmergencyAudio() to silence TTS before starting their own audio.
-        // This requires no changes to the generic interactiveContent signature.
+
         .environment(\.stopEmergencyAudio, EmergencyAudioStopAction {
             silenceAudio()
         })
@@ -221,18 +218,14 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
 
     // MARK: - Audio control
 
-    /// Stops TTS immediately without tearing down the whole flow.
-    /// Used by interactive child views (e.g. CPRCycleView) that need
-    /// to start their own audio (metronome) without overlapping TTS.
+
     private func silenceAudio() {
-        audio.onFinished  = nil      // Prevent onFinished firing after stop
+        audio.onFinished  = nil
         audio.onWillSpeak = nil
         audio.stop()
         tts.reset()
 
-        // Re-wire onFinished so future steps (after CPR is stopped
-        // and the user swipes forward) still get audio callbacks.
-        // We defer this to avoid the just-stopped utterance firing onFinished.
+
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(200))
             guard isActive else { return }

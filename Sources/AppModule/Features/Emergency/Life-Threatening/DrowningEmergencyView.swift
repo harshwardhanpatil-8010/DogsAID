@@ -3,42 +3,37 @@ import SwiftUI
 struct DrowningEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Remove from Water",
-            instruction: "Remove your dog from the water immediately. " +
-                         "Place them on a flat surface and keep their airway clear.",
-            audio: "Remove your dog from the water immediately.",
+            title: "REMOVE FROM WATER",
+            instruction: "Remove your dog from the water immediately. Place them on a flat, firm surface.",
+            audio: "Remove your dog from the water immediately and place them on a flat surface.",
             illustrationIcon: "drop.triangle.fill",
             illustrationColor: Color(red: 0.20, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "Check Breathing",
-            instruction: "Check for breathing by watching chest movement and feeling for airflow. " +
-                         "If your dog is not breathing, begin CPR immediately.",
-            audio: "Check if your dog is breathing.",
+            title: "CLEAR AIRWAY",
+            instruction: "Lift the dog's hind legs for 15-20 seconds to drain water from the lungs.",
+            audio: "Lift the dog's back legs for twenty seconds to help drain water from the lungs.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.55, green: 0.75, blue: 0.95)
         ),
         InfoStep(
-            title: "Clear Airway",
-            instruction: "Gently pull the tongue forward and check the mouth for debris. " +
-                         "Do not shake or hang your dog upside down to remove water.",
-            audio: "Clear the airway gently. Do not shake your dog.",
+            title: "CHECK BREATHING",
+            instruction: "If the dog is not breathing, begin CPR immediately. Check for a pulse behind the left elbow.",
+            audio: "If the dog is not breathing, start CPR now.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
-            title: "Provide Rescue Breaths",
-            instruction: "If your dog is not breathing but has a heartbeat, " +
-                         "close the mouth and give slow rescue breaths into the nose until breathing resumes.",
-            audio: "Provide rescue breaths if needed.",
+            title: "PROVIDE BREATHS",
+            instruction: "Close the dog's mouth and breathe into the nose until the chest rises. Give 2 breaths every 30 compressions.",
+            audio: "Hold the muzzle closed and breathe into the nose.",
             illustrationIcon: "heart.fill",
             illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25)
         ),
         InfoStep(
-            title: "Emergency Vet Care",
-            instruction: "Even if your dog seems to recover, go to an emergency veterinarian immediately. " +
-                         "Secondary drowning can occur hours later.",
-            audio: "Go to an emergency veterinarian immediately.",
+            title: "EMERGENCY VET CARE",
+            instruction: "Even if the dog seems fine, secondary drowning can occur later. Go to the vet immediately.",
+            audio: "Go to the vet immediately as water in the lungs can cause issues hours later.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

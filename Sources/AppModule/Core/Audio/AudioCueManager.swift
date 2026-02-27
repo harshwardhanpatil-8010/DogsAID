@@ -20,11 +20,6 @@ final class AudioCueManager: NSObject, ObservableObject {
         super.init()
         synthesizer.delegate = self
 
-        // .playback is required — AVAudioEngine (used by MetronomeManager)
-        // cannot output audio under .ambient. .mixWithOthers lets TTS and
-        // the metronome beat coexist on the same session without interrupting
-        // each other. .duckOthers would lower background music during speech,
-        // which is reasonable behaviour for an emergency app.
         try? AVAudioSession.sharedInstance().setCategory(
             .playback,
             mode: .default,
@@ -60,8 +55,6 @@ final class AudioCueManager: NSObject, ObservableObject {
 
         currentTextLength = text.count
 
-        // Session is kept active permanently — no per-utterance activation.
-        // MetronomeManager shares the same active session.
         let utterance             = AVSpeechUtterance(string: text)
         utterance.voice           = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate            = 0.5
@@ -81,10 +74,7 @@ final class AudioCueManager: NSObject, ObservableObject {
         isCancelling             = true
         shouldDeactivateOnCancel = true
         synthesizer.stopSpeaking(at: .immediate)
-        // NOTE: We no longer call setActive(false) here.
-        // Deactivating the global session would kill MetronomeManager's
-        // AVAudioEngine mid-beat. The session stays alive until the
-        // app backgrounds or the OS reclaims it.
+
     }
 }
 
@@ -106,8 +96,7 @@ extension AudioCueManager: @preconcurrency AVSpeechSynthesizerDelegate {
         didFinish utterance: AVSpeechUtterance
     ) {
         if shouldDeactivateOnCancel {
-            // stop() was called — treat as cancelled, clear flag, do not
-            // fire onFinished. Do NOT deactivate the session.
+
             shouldDeactivateOnCancel = false
             isCancelling             = false
             return
@@ -123,7 +112,6 @@ extension AudioCueManager: @preconcurrency AVSpeechSynthesizerDelegate {
         didCancel utterance: AVSpeechUtterance
     ) {
         if shouldDeactivateOnCancel {
-            // Same as didFinish path — clear flag, no session deactivation.
             shouldDeactivateOnCancel = false
             isCancelling             = false
         }

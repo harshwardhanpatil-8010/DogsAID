@@ -7,40 +7,36 @@ struct HitByCarView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "SECURE THE SCENE",
-            instruction: "Traffic control. Move dog safely off road using blanket. " +
-                        "Approach slowly from behind if panicked.",
-            audio: "Secure scene first. Move dog safely off road.",
+            instruction: "Ensure the area is safe from traffic. Approach the dog slowly from the front to avoid startling them.",
+            audio: "Make sure the area is safe. Approach the dog slowly and calmly.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.65, green: 0.25, blue: 0.85)
         ),
         InfoStep(
-            title: "DO NOT MOVE if Spine Injury",
-            instruction: "Paralysis, dragging legs, yelping on touch = suspect spine. " +
-                        "Blanket stretcher, keep spine straight.",
-            audio: "Suspect spine injury. Use blanket stretcher.",
+            title: "SPINE SAFETY",
+            instruction: "Slide the dog onto a flat board or use a blanket as a stretcher to prevent spinal movement.",
+            audio: "Use a flat board or a blanket to move the dog. Keep the spine as straight as possible.",
             illustrationIcon: "figure.wave.circle",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Control Bleeding",
-            instruction: "Direct pressure on arterial bleeding (spurting). Elevate if no fracture. " +
-                        "Pressure points: femoral/groin artery.",
-            audio: "Control bleeding with direct pressure.",
+            title: "CONTROL BLEEDING",
+            instruction: "Apply firm, direct pressure to any visible wounds with a clean cloth. Do not lift the cloth to check.",
+            audio: "Apply firm pressure to any bleeding wounds.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.82, green: 0.22, blue: 0.28)
         ),
         InfoStep(
-            title: "Stabilize Fractures",
-            instruction: "Splint long bones (stick between legs). Do NOT realign. Towel sling for pelvis.",
-            audio: "Splint obvious fractures. Do not realign.",
+            title: "MANAGE SHOCK",
+            instruction: "Keep the dog warm with a blanket. Keep their head slightly lower than the rest of their body.",
+            audio: "Keep the dog warm with a blanket and keep their head low.",
             illustrationIcon: "figure.walk",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "VET TRAUMA CENTER",
-            instruction: "**SHOCK common.** IV fluids, pain meds, x-rays, surgery. " +
-                        "Internal bleeding invisible.",
-            audio: "Trauma center immediately. Internal injuries likely.",
+            title: "EMERGENCY VET CARE",
+            instruction: "Internal injuries are often invisible. Transport the dog to a trauma center immediately.",
+            audio: "Drive to the vet immediately. Internal injuries are a major risk.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.65, green: 0.15, blue: 0.85)
         )

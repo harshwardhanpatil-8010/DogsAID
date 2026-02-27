@@ -4,36 +4,36 @@ struct FrostbiteHypothermiaView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Recognize Cold Injury",
-            instruction: "Shivering, lethargy, stiff muscles, pale or blue skin, cold ears or paws. Severe cases may collapse.",
+            title: "RECOGNIZE SYMPTOMS",
+            instruction: "Look for shivering, lethargy, or cold, pale skin. Severe cases may lead to collapse.",
             audio: "Watch for shivering, weakness, or cold skin.",
             illustrationIcon: "snowflake",
             illustrationColor: Color(red: 0.35, green: 0.55, blue: 0.90)
         ),
         InfoStep(
-            title: "Move to Warm Area",
-            instruction: "Bring dog indoors or into a warm, dry shelter immediately. Protect from wind.",
-            audio: "Move your dog to a warm, dry area.",
+            title: "MOVE TO WARMTH",
+            instruction: "Immediately move the dog to a warm, dry environment. Protect them from wind and moisture.",
+            audio: "Move your dog to a warm, dry area immediately.",
             illustrationIcon: "house.fill",
             illustrationColor: Color(red: 0.45, green: 0.65, blue: 0.55)
         ),
         InfoStep(
-            title: "Warm Gradually",
-            instruction: "Wrap in warm blankets or towels. Use body heat. Do NOT use hot water or heating pads.",
-            audio: "Warm your dog gradually using blankets.",
+            title: "GENTLE WARMING",
+            instruction: "Wrap the dog in warm, dry blankets. Use your own body heat if possible.",
+            audio: "Move the dog inside. Wrap them in warm, dry blankets.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.65, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "Do Not Rub Frostbitten Areas",
-            instruction: "Rubbing causes tissue damage. Do not break blisters or apply ointments.",
-            audio: "Do not rub or massage frostbitten areas.",
+            title: "DO NOT RUB",
+            instruction: "Do not rub or massage affected areas, as this damages the frozen tissue.",
+            audio: "Do not rub or massage the skin. This can cause severe tissue damage.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
-            title: "Emergency Vet Care",
-            instruction: "Moderate to severe hypothermia or frostbite requires immediate veterinary care.",
+            title: "EMERGENCY VET CARE",
+            instruction: "Moderate to severe hypothermia requires professional treatment to prevent organ failure.",
             audio: "Seek veterinary care immediately.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)

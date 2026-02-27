@@ -29,6 +29,8 @@ enum EmergencyIntent: Hashable {
     case urinaryBlockage
     case pregnancy
     case vomiting
+
+    case unknownEmergency
 }
 
 struct EmergencyIntentResolver {
@@ -60,7 +62,17 @@ struct EmergencyIntentResolver {
 
         .urinaryBlockage: ["cannot pee", "straining to urinate", "urinary blockage"],
         .pregnancy: ["pregnant", "labor", "whelping"],
-        .vomiting: ["vomiting", "threw up", "nausea"]
+        .vomiting: ["vomiting", "threw up", "nausea"],
+        .unknownEmergency: [
+            "help",
+            "emergency",
+            "something wrong",
+            "not acting normal",
+            "i don't know",
+            "dont know",
+            "unknown",
+            "urgent"
+        ]
     ]
 
     static func resolve(from input: String) -> EmergencyIntent? {
@@ -102,6 +114,7 @@ struct EmergencyIntentResolver {
         case .urinaryBlockage:      return .urinaryBlockage
         case .pregnancy:            return .pregnancyWhelping
         case .vomiting:             return .vomiting
+        case .unknownEmergency:     return .dogCPR
         }
     }
 

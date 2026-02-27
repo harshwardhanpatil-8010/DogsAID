@@ -83,9 +83,7 @@ struct CPRCycleView: View {
 
     @StateObject private var cpr = CPRCoordinator()
 
-    // Pulled from the environment — set by EmergencyFlowView.
-    // Calling this stops the parent's TTS audio before the metronome starts,
-    // preventing both from playing simultaneously.
+
     @Environment(\.stopEmergencyAudio) private var stopEmergencyAudio
 
     var body: some View {
@@ -142,8 +140,7 @@ struct CPRCycleView: View {
 
             Button {
                 if cpr.phase == .idle {
-                    // Stop TTS first, THEN start the metronome.
-                    // Without this order, the metronome and TTS voice overlap.
+
                     stopEmergencyAudio()
                     cpr.toggle()
                 } else {
@@ -162,12 +159,11 @@ struct CPRCycleView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
         .onChange(of: isPageVisible) { oldValue, newValue in
-            // User swiped away from the CPR page — stop metronome immediately.
+            
             if !newValue { cpr.hardStop() }
         }
         .onDisappear {
-            // View was removed from hierarchy (e.g. navigation pop) —
-            // ensure metronome is stopped regardless of page visibility.
+
             cpr.hardStop()
         }
     }

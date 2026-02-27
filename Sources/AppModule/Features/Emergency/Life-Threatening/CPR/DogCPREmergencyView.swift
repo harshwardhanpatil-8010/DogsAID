@@ -7,53 +7,45 @@ struct DogCPREmergencyView: View {
 
     private let steps: [CPRStep] = [
         CPRStep(
-            title: "Call for Help",
-            instruction: "Call the nearest emergency veterinary clinic immediately. " +
-                         "Put your phone on speaker so both hands stay free.",
-            audio: "Call the nearest emergency veterinary clinic immediately. " + "Put your phone on speaker.",
+            title: "CALL FOR HELP",
+            instruction: "Call the nearest emergency vet immediately. Put your phone on speaker so both hands are free.",
+            audio: "Call the nearest emergency veterinarian immediately. Put your phone on speaker.",
             illustrationIcon: "phone.fill",
             illustrationColor: Color(red: 0.20, green: 0.65, blue: 0.40),
             kind: .info
         ),
         CPRStep(
-            title: "Check Consciousness",
-            instruction: "Tap your dog and call their name loudly. " +
-                         "If they respond or move, do not perform CPR —" + "keep them calm and get to a vet.",
-            audio: "Check if your dog is conscious. If your dog responds, do not perform CPR.",
-            illustrationIcon: "eye.fill",
+            title: "CHECK FOR PULSE",
+            instruction: "Check for breathing and feel for a heartbeat behind the left elbow. DO NOT perform CPR if the dog is breathing or has a pulse.",
+            audio: "Check for breathing and feel for a heartbeat behind the left elbow. Do not perform CPR if the dog is breathing or has a pulse.",
+            illustrationIcon: "heart.fill",
+            illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25),
+            kind: .info
+        ),
+        CPRStep(
+            title: "POSITION THE DOG",
+            instruction: "Lay the dog on their right side on a flat, firm surface. Ensure the head and neck are straight.",
+            audio: "Lay the dog on their right side on a flat, firm surface. Make sure the head and neck are aligned.",
+            illustrationIcon: "figure.walk",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95),
             kind: .info
         ),
         CPRStep(
-            title: "Check Breathing",
-            instruction: "Watch for chest rise and fall. Place your hand near their nose to feel for airflow. " +
-                         "Listen closely for breath sounds. If there is no breathing," + "begin CPR on the next step.",
-            audio: "Check breathing. Look for chest movement. Listen for breath. " +
-                   "If no breathing, proceed to CPR.",
-            illustrationIcon: "lungs.fill",
-            illustrationColor: Color(red: 0.55, green: 0.75, blue: 0.95),
-            kind: .info
-        ),
-        CPRStep(
-            title: "CPR 30 Compressions + 2 Breaths",
-            instruction: "Tap \"Start CPR\" below. The app will guide you through each cycle: " +
-                         "30 chest compressions at 110 BPM, followed by 2" + "rescue breaths into your dog's nose. " +
-                         "Keep repeating until help arrives.",
-            audio: "Begin CPR. Do 30 chest compressions, then give 2 rescue breaths into the nose. " +
-                   "Repeat until help arrives. " + "Tap start to begin CPR and follow the instructions on screen.",
+            title: "START CPR CYCLE",
+            instruction: "Perform 30 chest compressions followed by 2 breaths. Press down 1/3 of chest depth, 100-120 times per minute.",
+            audio: "Start the CPR cycle now. Give thirty compressions followed by two breaths. Push down firmly and fast.",
             sizeGuidance: SizeGuidance(
                 smallDog: "Small dogs: Use one hand or two fingers.",
                 largeDog: "Large dogs: Use both hands, one on top of the other."
             ),
-            illustrationIcon: "heart.fill",
+            illustrationIcon: "timer",
             illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25),
             kind: .cpr
         ),
         CPRStep(
-            title: "Go to Emergency Vet",
-            instruction: "Continue CPR without stopping while someone drives" + "you to the nearest emergency veterinarian. " +
-                         "Do not stop CPR until a professional takes over.",
-            audio: "Go to the emergency veterinarian immediately." + "Continue CPR during transport.",
+            title: "EMERGENCY TRANSPORT",
+            instruction: "Continue CPR without stopping while someone drives you to the vet. Do not stop until a professional takes over.",
+            audio: "Continue CPR while transporting the dog to the vet. Do not stop until help arrives.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15),
             kind: .info

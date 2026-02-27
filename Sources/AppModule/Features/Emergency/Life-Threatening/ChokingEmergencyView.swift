@@ -15,52 +15,44 @@ struct ChokingEmergencyView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Recognize Choking",
-            instruction: "Extreme distress, violent coughing, gagging, blue gums, weak/no air movement. " +
-                        "Small dogs: panicked pawing at mouth. Large dogs: collapse.",
-            audio: "Extreme coughing, blue gums, no air movement equals choking emergency.",
+            title: "RECOGNIZE CHOKING",
+            instruction: "Look for violent coughing, gasping, or blue gums. If the dog is still moving air, let them cough.",
+            audio: "Look for violent coughing or blue gums. If the dog can breathe, let them cough.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
         ),
         InfoStep(
-            title: "Check Mouth Safely",
-            instruction: "Gently restrain. Open mouth wide, pull tongue forward. " +
-                        "Remove visible objects with fingers/tweezers ONLY if clearly grasped. " +
-                        "Never blind sweep—pushes object deeper.",
-            audio: "Open mouth carefully. Remove only visible objects you can grasp.",
+            title: "INSPECT THE MOUTH",
+            instruction: "Open the mouth and look for an object. NEVER perform a blind finger sweep as you may push the object deeper.",
+            audio: "Open the mouth and look for an object. Do not reach blindly into the throat.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         ),
         InfoStep(
-            title: "Heimlich Maneuver",
-            instruction: "Head down. 5 sharp blows between shoulder blades with flat hand. " +
-                        "Check mouth. Repeat 5 blows. Alternate with 5 abdominal thrusts.",
-            audio: "Head down. Five sharp shoulder blows, check mouth, repeat.",
+            title: "BACK BLOWS",
+            instruction: "Use the heel of your hand to deliver 4-5 sharp blows between the shoulder blades.",
+            audio: "Use the heel of your hand to deliver five sharp blows between the shoulder blades.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "Abdominal Thrusts",
-            instruction: "Small dogs: Back against chest, thrust upward behind ribs. " +
-                        "Large dogs: Behind dog, fist thrusts upward under ribs. " +
-                        "5 thrusts → check mouth → repeat cycle.",
-            audio: "Small dogs against chest. Large dogs behind. Five upward rib thrusts.",
+            title: "HEIMLICH MANEUVER",
+            instruction: "Wrap arms around the waist. Pull up and forward sharply just behind the ribs.",
+            audio: "Wrap your arms around the waist. Pull up and forward sharply just behind the ribs.",
             illustrationIcon: "figure.strengthtraining.traditional",
             illustrationColor: Color(red: 0.70, green: 0.25, blue: 0.25)
         ),
         InfoStep(
-            title: "CPR if Unconscious",
-            instruction: "No breathing/heartbeat → lay right side down → 30 chest compressions (100-120/min) → 2 breaths. " +
-                        "Small: Thumb/fingers opposite chest. Large: Both hands.",
-            audio: "No pulse equals CPR. Thirty compressions, two breaths. Repeat immediately.",
+            title: "CHECK FOR PULSE",
+            instruction: "If the dog collapses and stops breathing, begin CPR immediately.",
+            audio: "If the dog collapses and stops breathing, start CPR immediately.",
             illustrationIcon: "heart.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
-            title: "Emergency Vet NOW",
-            instruction: "ALWAYS vet visit post-choking. Throat swelling/injury invisible. " +
-                        "X-rays confirm airway clear. Call ahead.",
-            audio: "Emergency vet visit required even if resolved. Call ahead.",
+            title: "EMERGENCY VET NOW",
+            instruction: "Seek vet care immediately even if the object is removed. Throat swelling or damage is invisible.",
+            audio: "Drive to the emergency vet now. Internal throat damage is a major risk.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
         )

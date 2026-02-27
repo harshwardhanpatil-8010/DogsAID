@@ -5,42 +5,37 @@ struct BleedingControlView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Assess Bleeding Severity",
-            instruction: "Check for arterial (spurting, bright red) vs. venous (steady flow, dark red) bleeding. " +
-                        "Pale gums, rapid breathing, or weakness indicate internal bleeding—emergency vet NOW.",
-            audio: "Assess bleeding type and check for shock signs.",
+            title: "APPLY PRESSURE",
+            instruction: "Use a clean cloth or bandage to apply firm, direct pressure to the wound for 5 minutes. DO NOT lift the cloth to check.",
+            audio: "Use a clean cloth to apply firm pressure to the wound for five minutes.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
-            title: "Direct Firm Pressure",
-            instruction: "Apply clean gauze or cloth directly to wound with FIRM pressure for 10+ minutes. " +
-                        "Do NOT peek or lift to check—constant pressure stops most bleeding.",
-            audio: "Apply firm pressure with gauze for 10 minutes minimum.",
-            illustrationIcon: "hand.raised.fill",
-            illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
-        ),
-        InfoStep(
-            title: "Elevate if Possible",
-            instruction: "If no fracture suspected, elevate the bleeding limb above heart level. " +
-                        "Continue firm pressure while elevating.",
-            audio: "Elevate limb above heart level if no fracture.",
+            title: "ELEVATE WOUND",
+            instruction: "If the wound is on a limb, try to keep it elevated above the heart to slow blood flow.",
+            audio: "If the wound is on a leg, try to keep it raised.",
             illustrationIcon: "arrow.up.circle.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "Bandage Snugly",
-            instruction: "Wrap gauze snugly (not tourniquet-tight) over pressure dressing. " +
-                        "Check circulation: toes should stay warm/pink, not blue/cold.",
-            audio: "Bandage snugly but check circulation every 10 minutes.",
+            title: "BANDAGE SNUGLY",
+            instruction: "Wrap a bandage over the pressure cloth. Ensure it is snug but not tight enough to cut off circulation.",
+            audio: "Wrap a bandage snugly over the wound.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "Monitor & Transport",
-            instruction: "Watch for shock signs (pale gums, rapid breathing). " +
-                        "Transport to emergency vet immediately—do NOT wait for bleeding to stop completely.",
-            audio: "Monitor for shock and seek emergency vet care immediately.",
+            title: "CHECK FOR SHOCK",
+            instruction: "Look for pale gums, rapid breathing, or weakness. These are signs of life-threatening blood loss.",
+            audio: "Watch for pale gums or rapid breathing.",
+            illustrationIcon: "hand.raised.fill",
+            illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
+        ),
+        InfoStep(
+            title: "EMERGENCY TRANSPORT",
+            instruction: "Transport the dog to the vet immediately. Do not wait for the bleeding to stop completely if it is severe.",
+            audio: "Drive to the vet immediately for professional wound care.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

@@ -93,9 +93,7 @@ struct EmergencyPageView<Step: EmergencyStep, InteractiveContent: View>: View {
                         .padding(.bottom, 20)
                     }
 
-                    // REMOVED: Step counter text
-                    // Text("Step \(stepNumber) of \(totalSteps)")
-
+                  
                     Spacer(minLength: 60)
                 }
             }

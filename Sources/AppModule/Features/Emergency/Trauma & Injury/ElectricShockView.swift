@@ -4,37 +4,37 @@ struct ElectricShockView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "Ensure Scene Safety",
-            instruction: "Do NOT touch your dog until power is off. Unplug source or turn off main power.",
-            audio: "Turn off power before touching your dog.",
+            title: "DISABLE POWER",
+            instruction: "Do NOT touch the dog until the power source is turned off. Use a wooden stick to move wires if needed.",
+            audio: "Do not touch the dog until the power is off. Use a wooden object to move any live wires.",
             illustrationIcon: "bolt.fill",
             illustrationColor: Color(red: 0.95, green: 0.75, blue: 0.20)
         ),
         InfoStep(
-            title: "Check Breathing",
-            instruction: "Look for breathing difficulty, coughing, blue gums, or collapse. Electric shock can cause lung damage.",
-            audio: "Check breathing and gum color.",
+            title: "CHECK BREATHING",
+            instruction: "Check for regular breathing and a pulse behind the left elbow. Begin CPR if the dog is not breathing.",
+            audio: "Check for regular breathing and a pulse. Start CPR if needed.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.35, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "Cool Mouth Burns",
-            instruction: "Electrical burns often occur in mouth. Gently rinse mouth with cool water if safe.",
-            audio: "Rinse mouth gently with cool water.",
+            title: "CHECK MOUTH",
+            instruction: "Inspect the mouth for burns and check for regular breathing. Look for charred or swollen tissue.",
+            audio: "Check the mouth for burns and ensure the dog is breathing.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.30, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "Monitor Closely",
-            instruction: "Breathing problems can worsen hours later. Keep dog calm and limit movement.",
-            audio: "Monitor closely for delayed breathing issues.",
+            title: "MONITOR LUNGS",
+            instruction: "Electric shock can cause fluid to build up in the lungs hours later. Watch for coughing or gasping.",
+            audio: "Watch for coughing or gasping, which can happen hours later.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.60, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "Emergency Vet Visit",
-            instruction: "All electric shocks require veterinary evaluation, even if dog seems normal.",
-            audio: "Go to the vet immediately.",
+            title: "EMERGENCY VET CARE",
+            instruction: "All electric shocks require an immediate veterinary exam to check for internal damage.",
+            audio: "Drive to the vet immediately for a professional exam.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )
