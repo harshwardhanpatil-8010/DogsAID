@@ -5,7 +5,8 @@ struct SnakeBitesStingsView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "RECOGNIZE SYMPTOMS",
-            instruction: "Look for sudden yelping, rapid swelling, or weakness. Snake bites often cause immediate pain and bleeding.",
+            instruction: "Look for sudden yelping, rapid swelling, or weakness. " +
+            "Snake bites often cause immediate pain and bleeding.",
             audio: "Watch for sudden swelling, pain, or weakness.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.85, green: 0.20, blue: 0.20)
@@ -19,14 +20,16 @@ struct SnakeBitesStingsView: View {
         ),
         InfoStep(
             title: "DO NOT CUT OR SUCK",
-            instruction: "DO NOT apply ice, do not cut the wound, and do not try to suck out venom. These actions worsen tissue damage.",
+            instruction: "DO NOT apply ice, do not cut the wound, and do not try to suck out venom. " +
+            "These actions worsen tissue damage.",
             audio: "Do not use ice or try to cut the wound. Go to the vet immediately.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
             title: "REMOVE COLLARS",
-            instruction: "Rapid swelling can make collars or harnesses dangerous. Remove any restrictive items near the bite.",
+            instruction: "Rapid swelling can make collars or harnesses dangerous. " +
+            "Remove any restrictive items near the bite.",
             audio: "Remove collars or tight items immediately.",
             illustrationIcon: "scissors",
             illustrationColor: Color(red: 0.45, green: 0.55, blue: 0.75)

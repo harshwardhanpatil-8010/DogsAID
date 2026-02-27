@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct FoodPoisoningView: View {
@@ -20,14 +18,16 @@ struct FoodPoisoningView: View {
         ),
         InfoStep(
             title: "DO NOT INDUCE VOMITING",
-            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. Xylitol causes rapid blood sugar drops.",
+            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. " +
+            "Xylitol causes rapid blood sugar drops.",
             audio: "Do not make the dog vomit unless a vet tells you to.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
             title: "CALL VET",
-            instruction: "Provide the approximate time of ingestion and the amount consumed. Have the dog's weight ready.",
+            instruction: "Provide the approximate time of ingestion and the amount consumed. " +
+            "Have the dog's weight ready.",
             audio: "Call the vet with the time of ingestion and the amount eaten.",
             illustrationIcon: "phone.fill",
             illustrationColor: Color(red: 0.20, green: 0.55, blue: 0.85)

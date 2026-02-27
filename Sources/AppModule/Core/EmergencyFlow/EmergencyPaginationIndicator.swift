@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct EmergencyPaginationIndicator: View {
@@ -53,12 +51,12 @@ struct AudioDuration {
     }
 
     static func rawSeconds(for text: String, wordsPerMinute: Double = 140) -> TimeInterval {
-        let wc = Double(
+        let wordCount = Double(
             text.components(separatedBy: .whitespacesAndNewlines)
                 .filter { !$0.isEmpty }.count
         )
-        guard wc > 0, wordsPerMinute > 0 else { return 0 }
-        return (wc / wordsPerMinute) * 60
+        guard wordCount > 0, wordsPerMinute > 0 else { return 0 }
+        return (wordCount / wordsPerMinute) * 60
     }
 
     static func totalEstimate(for steps: [String], wordsPerMinute: Double = 140) -> String {
@@ -66,13 +64,14 @@ struct AudioDuration {
     }
 
     private static func formatted(seconds: TimeInterval) -> String {
-        let t = Int(seconds.rounded())
-        guard t > 0 else { return "< 1 sec" }
-        let m = t / 60; let s = t % 60
-        switch (m, s) {
-        case (0, let s): return "~\(s) sec"
-        case (let m, 0): return "~\(m) min"
-        default:         return "~\(m) min \(s) sec"
+        let totalSeconds = Int(seconds.rounded())
+        guard totalSeconds > 0 else { return "< 1 sec" }
+        let minutes = totalSeconds / 60
+        let secondsLeft = totalSeconds % 60
+        switch (minutes, secondsLeft) {
+        case (0, let remainingSeconds): return "~\(remainingSeconds) sec"
+        case (let totalMinutes, 0): return "~\(totalMinutes) min"
+        default: return "~\(minutes) min \(secondsLeft) sec"
         }
     }
 }

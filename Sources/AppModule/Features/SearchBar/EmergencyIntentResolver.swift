@@ -77,52 +77,47 @@ struct EmergencyIntentResolver {
 
     static func resolve(from input: String) -> EmergencyIntent? {
         let normalized = normalize(input)
-        for (intent, keywords) in keywordMap {
-            if keywords.contains(where: { normalized.contains($0) }) {
-                return intent
-            }
+        for (intent, keywords) in keywordMap where keywords.contains(where: { normalized.contains($0) }) {
+            return intent
         }
         return nil
     }
 
     static func route(for intent: EmergencyIntent) -> EmergencyRoute {
-        switch intent {
-        case .dogCPR:               return .dogCPR
-        case .choking:              return .choking
-        case .drowning:             return .drowning
-        case .bloat:                return .bloat
-        case .anaphylaxis:          return .anaphylaxis
-
-        case .bleeding:             return .bleedingControl
-        case .fractures:            return .fractures
-        case .hitByCar:             return .hitByCar
-        case .temperature:          return .temperatureBurns
-        case .electricShock:        return .electricShock
-        case .eyeInjuries:          return .eyeInjuries
-
-        case .poisonExposure:       return .poisonExposure
-        case .plantPoisoning:       return .plantPoisoning
-        case .foodPoisoning:        return .foodPoisoning
-        case .snakeBitesStings:     return .snakeBitesStings
-
-        case .seizures:             return .seizures
-        case .heatstroke:           return .heatstroke
-        case .frostbiteHypothermia: return .frostbiteHypothermia
-        case .blueGums:             return .blueGums
-        case .breathingDifficulty:  return .breathingDifficulty
-
-        case .urinaryBlockage:      return .urinaryBlockage
-        case .pregnancy:            return .pregnancyWhelping
-        case .vomiting:             return .vomiting
-        case .unknownEmergency:     return .dogCPR
-        }
+        let mapping: [EmergencyIntent: EmergencyRoute] = [
+            .dogCPR: .dogCPR,
+            .choking: .choking,
+            .drowning: .drowning,
+            .bloat: .bloat,
+            .anaphylaxis: .anaphylaxis,
+            .bleeding: .bleedingControl,
+            .fractures: .fractures,
+            .hitByCar: .hitByCar,
+            .temperature: .temperatureBurns,
+            .electricShock: .electricShock,
+            .eyeInjuries: .eyeInjuries,
+            .poisonExposure: .poisonExposure,
+            .plantPoisoning: .plantPoisoning,
+            .foodPoisoning: .foodPoisoning,
+            .snakeBitesStings: .snakeBitesStings,
+            .seizures: .seizures,
+            .heatstroke: .heatstroke,
+            .frostbiteHypothermia: .frostbiteHypothermia,
+            .blueGums: .blueGums,
+            .breathingDifficulty: .breathingDifficulty,
+            .urinaryBlockage: .urinaryBlockage,
+            .pregnancy: .pregnancyWhelping,
+            .vomiting: .vomiting,
+            .unknownEmergency: .dogCPR
+        ]
+        return mapping[intent] ?? .dogCPR
     }
 
     private static func normalize(_ input: String) -> String {
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = input.lowercased()
         var result = ""
-        tagger.enumerateTags(in: input.startIndex..<input.endIndex, unit: .word, scheme: .lemma) { tag, range in
+        tagger.enumerateTags(in: input.startIndex..<input.endIndex, unit: .word, scheme: .lemma) { tag, _ in
             if let lemma = tag?.rawValue {
                 result.append(lemma)
                 result.append(" ")

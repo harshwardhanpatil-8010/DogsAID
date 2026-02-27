@@ -1,12 +1,8 @@
-
-
 import SwiftUI
 
 // MARK: - EmergencyStep
 
-
 public protocol EmergencyStep: Identifiable {
-
     var title: String { get }
     var instruction: String { get }
     var audio: String { get }

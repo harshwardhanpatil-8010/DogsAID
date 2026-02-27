@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 // MARK: - CPRStepKind
@@ -13,23 +12,18 @@ public enum CPRStepKind {
 public struct CPRStep: Identifiable, EmergencyStep {
     public let id = UUID()
 
-
     public let title: String
     public let instruction: String
     public let audio: String
     public let illustrationColor: Color
     public let sizeGuidance: SizeGuidance?
 
-
     public let kind: CPRStepKind
-
 
     public let illustrationIcon: String?
 
-
     public var isInteractive: Bool { kind == .cpr }
 
-    
     public var isCPR: Bool { kind == .cpr }
 
     public init(

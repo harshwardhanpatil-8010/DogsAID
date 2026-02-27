@@ -83,7 +83,6 @@ struct CPRCycleView: View {
 
     @StateObject private var cpr = CPRCoordinator()
 
-
     @Environment(\.stopEmergencyAudio) private var stopEmergencyAudio
 
     var body: some View {
@@ -140,7 +139,6 @@ struct CPRCycleView: View {
 
             Button {
                 if cpr.phase == .idle {
-
                     stopEmergencyAudio()
                     cpr.toggle()
                 } else {
@@ -158,12 +156,10 @@ struct CPRCycleView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
-        .onChange(of: isPageVisible) { oldValue, newValue in
-            
+        .onChange(of: isPageVisible) { _, newValue in
             if !newValue { cpr.hardStop() }
         }
         .onDisappear {
-
             cpr.hardStop()
         }
     }

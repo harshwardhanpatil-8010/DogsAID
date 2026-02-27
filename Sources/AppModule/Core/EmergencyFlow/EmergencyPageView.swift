@@ -93,7 +93,6 @@ struct EmergencyPageView<Step: EmergencyStep, InteractiveContent: View>: View {
                         .padding(.bottom, 20)
                     }
 
-                  
                     Spacer(minLength: 60)
                 }
             }

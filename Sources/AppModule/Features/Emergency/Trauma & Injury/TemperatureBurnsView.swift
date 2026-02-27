@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct TemperatureBurnsView: View {
@@ -27,7 +26,8 @@ struct TemperatureBurnsView: View {
         ),
         InfoStep(
             title: "PREVENT LICKING",
-            instruction: "Do not let the dog lick or bite at the burned area. Use a muzzle or Elizabethan collar if necessary.",
+            instruction: "Do not let the dog lick or bite at the burned area. " +
+            "Use a muzzle or Elizabethan collar if necessary.",
             audio: "Stop the dog from licking or biting the burn.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.95, green: 0.45, blue: 0.20)
@@ -53,7 +53,7 @@ struct TemperatureBurnsView: View {
 struct TemperatureBurnsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-        TemperatureBurnsView()
+            TemperatureBurnsView()
         }
     }
 }

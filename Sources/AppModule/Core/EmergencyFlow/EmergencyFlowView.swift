@@ -102,7 +102,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
     @State private var didSwipeManually = false
     @State private var isPaused = false
     @State private var isActive = false
-    @State private var advanceTask: Task<Void, Never>? = nil
+    @State private var advanceTask: Task<Void, Never>?
 
     @StateObject private var audio = AudioCueManager()
     @StateObject private var tts = TTSCoordinator()
@@ -155,7 +155,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         .environment(\.stopEmergencyAudio, EmergencyAudioStopAction {
             silenceAudio()
         })
-        .onChange(of: index) { oldValue, newValue in
+        .onChange(of: index) { _, newValue in
             guard isActive, !isPaused else { return }
             didSwipeManually = true
             speakStep(at: newValue)
@@ -199,7 +199,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .onChange(of: scenePhase) { oldValue, newValue in
+        .onChange(of: scenePhase) { _, newValue in
             if newValue != .active { teardown() }
         }
     }
@@ -210,7 +210,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         isActive = false
         advanceTask?.cancel()
         advanceTask = nil
-        audio.onFinished  = nil
+        audio.onFinished = nil
         audio.onWillSpeak = nil
         audio.stop()
         tts.reset()
@@ -218,13 +218,11 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
 
     // MARK: - Audio control
 
-
     private func silenceAudio() {
-        audio.onFinished  = nil
+        audio.onFinished = nil
         audio.onWillSpeak = nil
         audio.stop()
         tts.reset()
-
 
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(200))
@@ -288,7 +286,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
             guard !isPaused else { return }
             guard index == advancingFrom else { return }
             didSwipeManually = false
-            index = index + 1
+            index += 1
             speakStep(at: index)
         }
     }

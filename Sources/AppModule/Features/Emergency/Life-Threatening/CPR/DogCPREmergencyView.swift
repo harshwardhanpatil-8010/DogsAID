@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 // MARK: - DogCPREmergencyView
@@ -16,8 +15,10 @@ struct DogCPREmergencyView: View {
         ),
         CPRStep(
             title: "CHECK FOR PULSE",
-            instruction: "Check for breathing and feel for a heartbeat behind the left elbow. DO NOT perform CPR if the dog is breathing or has a pulse.",
-            audio: "Check for breathing and feel for a heartbeat behind the left elbow. Do not perform CPR if the dog is breathing or has a pulse.",
+            instruction: "Check for breathing and feel for a heartbeat behind the left elbow. " +
+            "DO NOT perform CPR if the dog is breathing or has a pulse.",
+            audio: "Check for breathing and feel for a heartbeat behind the left elbow. " +
+            "Do not perform CPR if the dog is breathing or has a pulse.",
             illustrationIcon: "heart.fill",
             illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25),
             kind: .info
@@ -32,8 +33,10 @@ struct DogCPREmergencyView: View {
         ),
         CPRStep(
             title: "START CPR CYCLE",
-            instruction: "Perform 30 chest compressions followed by 2 breaths. Press down 1/3 of chest depth, 100-120 times per minute.",
-            audio: "Start the CPR cycle now. Give thirty compressions followed by two breaths. Push down firmly and fast.",
+            instruction: "Perform 30 chest compressions followed by 2 breaths. " +
+            "Press down 1/3 of chest depth, 100-120 times per minute.",
+            audio: "Start the CPR cycle now. Give thirty compressions followed by two breaths. " +
+            "Push down firmly and fast.",
             sizeGuidance: SizeGuidance(
                 smallDog: "Small dogs: Use one hand or two fingers.",
                 largeDog: "Large dogs: Use both hands, one on top of the other."
@@ -44,7 +47,8 @@ struct DogCPREmergencyView: View {
         ),
         CPRStep(
             title: "EMERGENCY TRANSPORT",
-            instruction: "Continue CPR without stopping while someone drives you to the vet. Do not stop until a professional takes over.",
+            instruction: "Continue CPR without stopping while someone drives you to the vet. " +
+            "Do not stop until a professional takes over.",
             audio: "Continue CPR while transporting the dog to the vet. Do not stop until help arrives.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15),
@@ -54,7 +58,6 @@ struct DogCPREmergencyView: View {
 
     var body: some View {
         EmergencyFlowView(steps: steps, navigationTitle: "Dog CPR") { step, isVisible in
-           
             if step.isInteractive {
                 CPRCycleView(isPageVisible: isVisible)
             }

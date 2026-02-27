@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct BlueGumsView: View {
@@ -20,7 +19,8 @@ struct BlueGumsView: View {
         ),
         InfoStep(
             title: "FRESH AIR",
-            instruction: "Immediately move the dog to an area with fresh air. Open windows if you are indoors or in a car.",
+            instruction: "Immediately move the dog to an area with fresh air. " +
+            "Open windows if you are indoors or in a car.",
             audio: "Get fresh air immediately. Open all windows.",
             illustrationIcon: "wind",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)

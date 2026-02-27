@@ -16,14 +16,16 @@ struct ChokingEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "RECOGNIZE CHOKING",
-            instruction: "Look for violent coughing, gasping, or blue gums. If the dog is still moving air, let them cough.",
+            instruction: "Look for violent coughing, gasping, or blue gums. " +
+            "If the dog is still moving air, let them cough.",
             audio: "Look for violent coughing or blue gums. If the dog can breathe, let them cough.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
         ),
         InfoStep(
             title: "INSPECT THE MOUTH",
-            instruction: "Open the mouth and look for an object. NEVER perform a blind finger sweep as you may push the object deeper.",
+            instruction: "Open the mouth and look for an object. " +
+            "NEVER perform a blind finger sweep as you may push the object deeper.",
             audio: "Open the mouth and look for an object. Do not reach blindly into the throat.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
@@ -51,7 +53,8 @@ struct ChokingEmergencyView: View {
         ),
         InfoStep(
             title: "EMERGENCY VET NOW",
-            instruction: "Seek vet care immediately even if the object is removed. Throat swelling or damage is invisible.",
+            instruction: "Seek vet care immediately even if the object is removed. " +
+            "Throat swelling or damage is invisible.",
             audio: "Drive to the emergency vet now. Internal throat damage is a major risk.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)

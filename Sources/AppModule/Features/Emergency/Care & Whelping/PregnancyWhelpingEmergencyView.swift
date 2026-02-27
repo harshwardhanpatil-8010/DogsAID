@@ -4,14 +4,16 @@ struct PregnancyWhelpingEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "IDENTIFY TROUBLE",
-            instruction: "Seek help if there is more than 2 hours between puppies or 30 minutes of strong straining with no puppy.",
+            instruction: "Seek help if there is more than 2 hours between puppies or " +
+            "30 minutes of strong straining with no puppy.",
             audio: "Call the vet if there is more than two hours between puppies or thirty minutes of hard straining.",
             illustrationIcon: "clock.fill",
             illustrationColor: Color(red: 0.55, green: 0.55, blue: 0.85)
         ),
         InfoStep(
             title: "GREEN DISCHARGE",
-            instruction: "Dark green discharge BEFORE the first puppy is born indicates an emergency (placental separation).",
+            instruction: "Dark green discharge BEFORE the first puppy is born indicates an emergency " +
+            "(placental separation).",
             audio: "Dark green discharge before any puppies are born is an emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
@@ -25,14 +27,16 @@ struct PregnancyWhelpingEmergencyView: View {
         ),
         InfoStep(
             title: "EXCESSIVE BLEEDING",
-            instruction: "Some blood is normal, but heavy, continuous bleeding is a life-threatening emergency for the mother.",
+            instruction: "Some blood is normal, but heavy, continuous bleeding is a life-threatening emergency " +
+            "for the mother.",
             audio: "Heavy, continuous bleeding is a life-threatening emergency.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "If any abnormal signs occur, transport the mother to the vet immediately. Delayed care can be fatal.",
+            instruction: "If any abnormal signs occur, transport the mother to the vet immediately. " +
+            "Delayed care can be fatal.",
             audio: "Go to an emergency vet immediately if complications occur.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)

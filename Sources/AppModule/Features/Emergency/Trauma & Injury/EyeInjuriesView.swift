@@ -5,7 +5,8 @@ struct EyeInjuriesView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "PREVENT RUBBING",
-            instruction: "Prevent the dog from pawing or rubbing at the eye. Use an Elizabethan collar or hold their paws firmly.",
+            instruction: "Prevent the dog from pawing or rubbing at the eye. " +
+            "Use an Elizabethan collar or hold their paws firmly.",
             audio: "Stop the dog from scratching or rubbing their eye.",
             illustrationIcon: "eye.trianglebadge.exclamationmark.fill",
             illustrationColor: Color(red: 0.80, green: 0.20, blue: 0.30)
@@ -19,7 +20,8 @@ struct EyeInjuriesView: View {
         ),
         InfoStep(
             title: "KEEP EYE MOIST",
-            instruction: "If the eye is bulging or the eyelid cannot close, gently apply sterile saline or clean water to keep it moist.",
+            instruction: "If the eye is bulging or the eyelid cannot close, " +
+            "gently apply sterile saline or clean water to keep it moist.",
             audio: "Keep the eye moist with saline or clean water.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.60, green: 0.40, blue: 0.70)
@@ -33,7 +35,8 @@ struct EyeInjuriesView: View {
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "Eye injuries can lead to permanent blindness within hours. Transport the dog to the vet immediately.",
+            instruction: "Eye injuries can lead to permanent blindness within hours. " +
+            "Transport the dog to the vet immediately.",
             audio: "Drive to the vet immediately to save the dog's vision.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)

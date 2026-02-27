@@ -26,7 +26,8 @@ struct UrinaryBlockageView: View {
         ),
         InfoStep(
             title: "DO NOT TREAT AT HOME",
-            instruction: "DO NOT attempt to give medications or home remedies. This is a mechanical blockage that requires professional tools.",
+            instruction: "DO NOT attempt to give medications or home remedies. " +
+            "This is a mechanical blockage that requires professional tools.",
             audio: "Do not attempt home treatment. This requires a veterinarian.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)

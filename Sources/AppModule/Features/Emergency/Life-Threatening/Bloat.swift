@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct BloatView: View {
@@ -7,7 +5,8 @@ struct BloatView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "RECOGNIZE SYMPTOMS",
-            instruction: "Look for a hard, swollen belly and unproductive retching. Bloat is 100% fatal without immediate surgery.",
+            instruction: "Look for a hard, swollen belly and unproductive retching. " +
+            "Bloat is 100% fatal without immediate surgery.",
             audio: "Look for a swollen belly and gagging without vomiting. This is a fatal emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.90, green: 0.25, blue: 0.25)

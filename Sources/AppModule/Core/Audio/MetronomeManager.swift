@@ -2,15 +2,15 @@ import AVFoundation
 
 final class MetronomeManager {
 
-    private let engine     = AVAudioEngine()
-    private let player     = AVAudioPlayerNode()
-    private let sampleRate : Double = 44100
-    private lazy var format     = AVAudioFormat(
+    private let engine = AVAudioEngine()
+    private let player = AVAudioPlayerNode()
+    private let sampleRate: Double = 44100
+    private lazy var format = AVAudioFormat(
         standardFormatWithSampleRate: sampleRate, channels: 1
     )!
-    private lazy var beatBuffer : AVAudioPCMBuffer = makeBeatBuffer()
+    private lazy var beatBuffer: AVAudioPCMBuffer = makeBeatBuffer()
 
-    private var timerSrc  : DispatchSourceTimer?
+    private var timerSrc: DispatchSourceTimer?
     private let timerQueue = DispatchQueue(label: "cpr.metronome", qos: .userInteractive)
 
     init() {
@@ -22,7 +22,6 @@ final class MetronomeManager {
 
     func start(bpm: Double) {
         stop()
-
 
         guard !engine.isRunning else { return }
         do {
@@ -49,35 +48,34 @@ final class MetronomeManager {
         timerSrc = nil
         if player.isPlaying { player.stop() }
         if engine.isRunning { engine.stop() }
-
     }
 
     // MARK: - Sound design
 
     private func makeBeatBuffer() -> AVAudioPCMBuffer {
-        let duration     = 0.12
-        let frames       = AVAudioFrameCount(sampleRate * duration)
-        let buffer       = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames)!
+        let duration = 0.12
+        let frames = AVAudioFrameCount(sampleRate * duration)
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames)!
         buffer.frameLength = frames
 
-        let data         = buffer.floatChannelData![0]
-        let sr           = Float(sampleRate)
-        let attackFrames = Int(sr * 0.002)
+        let data = buffer.floatChannelData![0]
+        let sampleRateFloat = Float(sampleRate)
+        let attackFrames = Int(sampleRateFloat * 0.002)
 
-        for i in 0..<Int(frames) {
-            let t = Float(i) / sr
+        for index in 0..<Int(frames) {
+            let time = Float(index) / sampleRateFloat
 
             let envelope: Float
-            if i < attackFrames {
-                envelope = Float(i) / Float(attackFrames)
+            if index < attackFrames {
+                envelope = Float(index) / Float(attackFrames)
             } else {
-                envelope = exp(-6.0 * Float(i - attackFrames) / (sr * Float(duration)))
+                envelope = exp(-6.0 * Float(index - attackFrames) / (sampleRateFloat * Float(duration)))
             }
 
-            let body      = sin(2 * .pi * 65  * t)
-            let transient = sin(2 * .pi * 180 * t) * 0.4 * exp(-18.0 * t / Float(duration))
+            let body = sin(2 * .pi * 65 * time)
+            let transient = sin(2 * .pi * 180 * time) * 0.4 * exp(-18.0 * time / Float(duration))
 
-            data[i] = (body + transient) * envelope * 0.75
+            data[index] = (body + transient) * envelope * 0.75
         }
         return buffer
     }

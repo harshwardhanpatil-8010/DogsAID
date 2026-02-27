@@ -18,14 +18,16 @@ struct DrowningEmergencyView: View {
         ),
         InfoStep(
             title: "CHECK BREATHING",
-            instruction: "If the dog is not breathing, begin CPR immediately. Check for a pulse behind the left elbow.",
+            instruction: "If the dog is not breathing, begin CPR immediately. " +
+            "Check for a pulse behind the left elbow.",
             audio: "If the dog is not breathing, start CPR now.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
             title: "PROVIDE BREATHS",
-            instruction: "Close the dog's mouth and breathe into the nose until the chest rises. Give 2 breaths every 30 compressions.",
+            instruction: "Close the dog's mouth and breathe into the nose until the chest rises. " +
+            "Give 2 breaths every 30 compressions.",
             audio: "Hold the muzzle closed and breathe into the nose.",
             illustrationIcon: "heart.fill",
             illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25)

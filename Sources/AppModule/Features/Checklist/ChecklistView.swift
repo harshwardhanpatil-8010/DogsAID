@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct ChecklistItem: Identifiable, Hashable {
-    let id          : String
-    let description : String
-    let usage       : String
+    let id: String
+    let description: String
+    let usage: String
 }
 
 struct IdentifiableString: Identifiable, Hashable {
@@ -19,9 +19,9 @@ struct ChecklistView: View {
 
     // MARK: State
 
-    @State private var checkedItems     : Set<String>         = []
-    @State private var showConfetti     : Bool                = false
-    @State private var selectedInfoItem : IdentifiableString? = nil
+    @State private var checkedItems: Set<String> = []
+    @State private var showConfetti: Bool = false
+    @State private var selectedInfoItem: IdentifiableString?
 
     @StateObject private var notifManager = ChecklistNotificationManager.shared
 
@@ -87,7 +87,7 @@ struct ChecklistView: View {
             id: "Muzzles",
             description: "Quick-release fabric or basket style. Sizes for all breeds.",
             usage: "PAIN EMERGENCIES: Apply BEFORE treating injuries. Even sweet dogs bite when hurt."
-        ),
+        )
     ]
 
     private var progress: Double {
@@ -122,7 +122,6 @@ struct ChecklistView: View {
                     }
                     .padding(.vertical, 8)
                 }
-
 
                 Section {
                     ForEach(items) { item in
@@ -231,7 +230,7 @@ struct ChecklistView: View {
                 await notifManager.requestPermission()
                 notifManager.scheduleRemindersIfNeeded(
                     missingItems: missingItems,
-                    totalCount  : items.count
+                    totalCount: items.count
                 )
             }
         }
@@ -254,7 +253,7 @@ struct ChecklistView: View {
         if notifManager.isAuthorized {
             notifManager.scheduleRemindersIfNeeded(
                 missingItems: missingItems,
-                totalCount  : items.count
+                totalCount: items.count
             )
         }
 

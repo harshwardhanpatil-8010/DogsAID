@@ -7,8 +7,8 @@ final class AudioCueManager: NSObject, ObservableObject {
 
     // MARK: Callbacks
 
-    var onFinished  : (() -> Void)?
-    var onWillSpeak : ((NSRange, Int) -> Void)?
+    var onFinished: (() -> Void)?
+    var onWillSpeak: ((NSRange, Int) -> Void)?
 
     // MARK: Private
 

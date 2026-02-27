@@ -16,7 +16,7 @@ enum Haptic {
     @MainActor
     static func success() {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            AudioServicesPlaySystemSound(1407) 
+            AudioServicesPlaySystemSound(1407)
         } else {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)

@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct PoisonExposureView: View {
@@ -19,8 +18,10 @@ struct PoisonExposureView: View {
         ),
         InfoStep(
             title: "DO NOT INDUCE VOMITING",
-            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. Some toxins cause more damage when vomited.",
-            audio: "Do not make the dog vomit unless a vet tells you to. Some toxins cause more damage when vomited.",
+            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. " +
+            "Some toxins cause more damage when vomited.",
+            audio: "Do not make the dog vomit unless a vet tells you to. " +
+            "Some toxins cause more damage when vomited.",
             illustrationIcon: "xmark.octagon.fill",
             illustrationColor: Color(red: 0.85, green: 0.20, blue: 0.20)
         ),

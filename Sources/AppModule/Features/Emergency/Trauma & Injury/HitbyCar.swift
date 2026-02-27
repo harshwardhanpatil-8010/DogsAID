@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct HitByCarView: View {
@@ -21,7 +19,8 @@ struct HitByCarView: View {
         ),
         InfoStep(
             title: "CONTROL BLEEDING",
-            instruction: "Apply firm, direct pressure to any visible wounds with a clean cloth. Do not lift the cloth to check.",
+            instruction: "Apply firm, direct pressure to any visible wounds with a clean cloth. " +
+            "Do not lift the cloth to check.",
             audio: "Apply firm pressure to any bleeding wounds.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.82, green: 0.22, blue: 0.28)
@@ -58,4 +57,3 @@ struct HitByCarView_Previews: PreviewProvider {
         }
     }
 }
-

@@ -69,9 +69,19 @@ enum EmergencyTopicCatalog {
         .init(title: "Bleeding Control", icon: "bandage.fill", iconColor: .red, route: .bleedingControl),
         .init(title: "Fractures & Sprains", icon: "staroflife.fill", iconColor: .brown, route: .fractures),
         .init(title: "Hit By Car", icon: "car.fill", iconColor: .purple, route: .hitByCar),
-        .init(title: "Burns & Temperature Injury", icon: "thermometer.sun.fill", iconColor: .orange, route: .temperatureBurns),
+        .init(
+            title: "Burns & Temperature Injury",
+            icon: "thermometer.sun.fill",
+            iconColor: .orange,
+            route: .temperatureBurns
+        ),
         .init(title: "Electric Shock", icon: "bolt.fill", iconColor: .yellow, route: .electricShock),
-        .init(title: "Eye Injuries", icon: "eye.trianglebadge.exclamationmark.fill", iconColor: .red, route: .eyeInjuries)
+        .init(
+            title: "Eye Injuries",
+            icon: "eye.trianglebadge.exclamationmark.fill",
+            iconColor: .red,
+            route: .eyeInjuries
+        )
     ]
 
     static let toxinsAndIngestion: [EmergencyTopicModel] = [
@@ -87,7 +97,12 @@ enum EmergencyTopicCatalog {
         .init(title: "Frostbite & Hypothermia", icon: "snowflake", iconColor: .blue, route: .frostbiteHypothermia),
         .init(title: "Blue Gums", icon: "lungs.fill", iconColor: .blue, route: .blueGums),
         .init(title: "Breathing Difficulty", icon: "waveform.path", iconColor: .cyan, route: .breathingDifficulty),
-        .init(title: "Urinary Blockage", icon: "exclamationmark.triangle.fill", iconColor: .red, route: .urinaryBlockage)
+        .init(
+            title: "Urinary Blockage",
+            icon: "exclamationmark.triangle.fill",
+            iconColor: .red,
+            route: .urinaryBlockage
+        )
     ]
 
     static let careAndWhelping: [EmergencyTopicModel] = [

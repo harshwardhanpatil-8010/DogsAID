@@ -30,7 +30,8 @@ struct InfoView: View {
         Section("Purpose") {
             InfoRow(
                 title: "Step-by-step first aid guidance",
-                message: "Helps you respond quickly during dog emergencies. Works offline. Designed for high-stress situations. Always contact a veterinarian for professional care."
+                message: "Helps you respond quickly during dog emergencies. Works offline. " +
+                "Designed for high-stress situations. Always contact a veterinarian for professional care."
             )
         }
     }
@@ -55,7 +56,8 @@ struct InfoView: View {
 
     private var legalSection: some View {
         Section {
-            Text("DogsAID provides general first aid information only and is not a substitute for professional veterinary advice, diagnosis, or treatment.")
+            Text("DogsAID provides general first aid information only and is not a substitute for " +
+                 "professional veterinary advice, diagnosis, or treatment.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
