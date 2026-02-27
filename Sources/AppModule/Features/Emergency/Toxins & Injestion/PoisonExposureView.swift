@@ -3,39 +3,42 @@ import SwiftUI
 struct PoisonExposureView: View {
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "REMOVE ACCESS",
-            instruction: "Immediately move the dog away from the toxin. Prevent any further ingestion or skin contact.",
-            audio: "Move your dog away from the source of poison immediately.",
+            title: "FLUSH THE SKIN",
+            instruction: "If the poison is on the fur or skin, flush the area with lukewarm water and " +
+            "mild dish soap for 10 minutes. DO NOT let the dog lick the area.",
+            audio: "Wash the skin with lukewarm water and dish soap for ten minutes. Stop the dog from licking.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         ),
         InfoStep(
-            title: "IDENTIFY TOXIN",
-            instruction: "Note the substance name and the amount ingested. Keep the packaging or label to show the vet.",
-            audio: "Identify the substance and the amount eaten. Keep the packaging.",
+            title: "SAVE THE CONTAINER",
+            instruction: "Grab the bottle, box, or bag of the poison. The vet needs the \"Active Ingredients\" " +
+            "list and the EPA registration number from the label.",
+            audio: "Take the poison container with you. The vet needs the active ingredient list.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
             title: "DO NOT INDUCE VOMITING",
-            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. " +
-            "Some toxins cause more damage when vomited.",
-            audio: "Do not make the dog vomit unless a vet tells you to. " +
-            "Some toxins cause more damage when vomited.",
+            instruction: "DO NOT induce vomiting if the dog swallowed bleach, battery acid, or gasoline. " +
+            "These will burn the throat and lungs if vomited.",
+            audio: "Do not make the dog vomit if they swallowed chemicals or acid.",
             illustrationIcon: "xmark.octagon.fill",
             illustrationColor: Color(red: 0.85, green: 0.20, blue: 0.20)
         ),
         InfoStep(
-            title: "CALL VET OR POISON CONTROL",
-            instruction: "Contact your vet or a pet poison hotline immediately. Have the product packaging ready to read.",
-            audio: "Call your veterinarian or animal poison control immediately.",
+            title: "CHECK THE EYES",
+            instruction: "If the poison is in the eyes, hold the eyelid open and " +
+            "flush with plain water for 15 minutes.",
+            audio: "If poison is in the eyes, flush them with water for fifteen minutes.",
             illustrationIcon: "phone.fill",
             illustrationColor: Color(red: 0.20, green: 0.65, blue: 0.40)
         ),
         InfoStep(
-            title: "EMERGENCY TRANSPORT",
-            instruction: "Transport the dog to the vet immediately. Bring the toxin container or a sample of the substance.",
-            audio: "Transport your dog to the vet now. Bring the poison container with you.",
+            title: "EMERGENCY VET CARE",
+            instruction: "EMERGENCY. Drive to the vet immediately. Bring the substance container and " +
+            "tell the vet exactly how long ago the exposure happened.",
+            audio: "Drive to the vet now and bring the poison container.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

@@ -1,8 +1,6 @@
 import SwiftUI
 import Foundation
 
-// MARK: - TTSCoordinator (unchanged)
-
 @MainActor
 final class TTSCoordinator: ObservableObject {
 
@@ -36,9 +34,9 @@ final class TTSCoordinator: ObservableObject {
         targetProgress = 1.0
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(400))
-            self.progress = 1.0
-            self.isSpeaking = false
-            self.stopTimer()
+            progress = 1.0
+            isSpeaking = false
+            stopTimer()
         }
     }
 
@@ -61,11 +59,8 @@ final class TTSCoordinator: ObservableObject {
     }
 
     private func startTimer() {
-        displayTimer = Timer.scheduledTimer(
-            withTimeInterval: 1.0 / 60.0,
-            repeats: true
-        ) { [weak self] _ in
-            guard let self = self else { return }
+        displayTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { [weak self] _ in
+            guard let self else { return }
             Task { @MainActor in self.tick() }
         }
         RunLoop.main.add(displayTimer!, forMode: .common)
@@ -87,8 +82,6 @@ final class TTSCoordinator: ObservableObject {
     }
 }
 
-// MARK: - EmergencyFlowView
-
 struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
 
     let steps: [Step]
@@ -103,6 +96,9 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
     @State private var isPaused = false
     @State private var isActive = false
     @State private var advanceTask: Task<Void, Never>?
+    @State private var showSwipeHint = false
+
+    @AppStorage("hasSeenSwipeHint") private var hasSeenSwipeHint = false
 
     @StateObject private var audio = AudioCueManager()
     @StateObject private var tts = TTSCoordinator()
@@ -119,8 +115,6 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         self.interactiveContent = interactiveContent
     }
 
-    // MARK: Body
-
     var body: some View {
         TabView(selection: $index) {
             ForEach(steps.indices, id: \.self) { pageIndex in
@@ -132,7 +126,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
                 ) {
                     interactiveContent(steps[pageIndex], pageIndex == index)
                 }
-                .safeAreaInset(edge: .top, spacing: 0) {
+                .safeAreaInset(edge: .top) {
                     Color.clear.frame(height: indicatorHeight)
                 }
                 .tag(pageIndex)
@@ -140,6 +134,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .animation(.easeInOut(duration: 0.3), value: index)
+
         .overlay(alignment: .top) {
             VStack(spacing: 0) {
                 EmergencyPaginationIndicator(
@@ -152,40 +147,67 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
             .background(Color(.systemBackground))
         }
 
+        .overlay(alignment: .bottom) {
+            if showSwipeHint {
+                SwipeHintView()
+                    .padding(.bottom, 24)
+                    .transition(.opacity.combined(with: .scale(scale: 0.96)))
+            }
+        }
         .environment(\.stopEmergencyAudio, EmergencyAudioStopAction {
             silenceAudio()
         })
-        .onChange(of: index) { _, newValue in
+
+        .onChange(of: index) { _, _ in
             guard isActive, !isPaused else { return }
             didSwipeManually = true
-            speakStep(at: newValue)
+            showSwipeHint = false
+            hasSeenSwipeHint = true
+            speakStep(at: index)
         }
+
         .onAppear {
             isActive = true
 
             audio.onWillSpeak = { range, total in
                 Task { @MainActor in
-                    guard self.isActive else { return }
+                    guard isActive else { return }
                     tts.update(range: range, totalCharacters: total)
                 }
             }
 
             audio.onFinished = {
                 Task { @MainActor in
-                    guard self.isActive else { return }
+                    guard isActive else { return }
                     tts.finish()
                     handleAudioFinished()
                 }
             }
 
+            if !hasSeenSwipeHint {
+                withAnimation(.easeOut(duration: 0.25)) {
+                    showSwipeHint = true
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        showSwipeHint = false
+                    }
+                    hasSeenSwipeHint = true
+                }
+            }
+
             speakStep(at: 0)
         }
+
         .onDisappear {
             teardown()
         }
+
         .background(Color(.systemBackground))
         .navigationTitle(navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
+
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -194,17 +216,18 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
                     Image(systemName: isPaused ? "play.fill" : "pause.fill")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(isPaused ? .green : .secondary)
-                        .animation(.easeInOut(duration: 0.2), value: isPaused)
                 }
             }
         }
+
         .toolbar(.hidden, for: .tabBar)
+
         .onChange(of: scenePhase) { _, newValue in
             if newValue != .active { teardown() }
         }
     }
 
-    // MARK: - Teardown
+    private let indicatorHeight: CGFloat = 50
 
     private func teardown() {
         isActive = false
@@ -216,36 +239,12 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         tts.reset()
     }
 
-    // MARK: - Audio control
-
     private func silenceAudio() {
         audio.onFinished = nil
         audio.onWillSpeak = nil
         audio.stop()
         tts.reset()
-
-        Task { @MainActor in
-            try? await Task.sleep(for: .milliseconds(200))
-            guard isActive else { return }
-            audio.onWillSpeak = { range, total in
-                Task { @MainActor in
-                    guard self.isActive else { return }
-                    tts.update(range: range, totalCharacters: total)
-                }
-            }
-            audio.onFinished = {
-                Task { @MainActor in
-                    guard self.isActive else { return }
-                    tts.finish()
-                    handleAudioFinished()
-                }
-            }
-        }
     }
-
-    // MARK: - Private helpers
-
-    private let indicatorHeight: CGFloat = 50
 
     private func pause() {
         isPaused = true
@@ -267,12 +266,10 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
 
     private func handleAudioFinished() {
         guard isActive, !isPaused else { return }
-
         if didSwipeManually {
             didSwipeManually = false
             return
         }
-
         guard !steps[index].isInteractive else { return }
         guard index < steps.count - 1 else { return }
 
@@ -281,18 +278,12 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         advanceTask?.cancel()
         advanceTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(600))
-            guard !Task.isCancelled else { return }
-            guard isActive else { return }
-            guard !isPaused else { return }
-            guard index == advancingFrom else { return }
-            didSwipeManually = false
+            guard !Task.isCancelled, isActive, !isPaused, index == advancingFrom else { return }
             index += 1
             speakStep(at: index)
         }
     }
 }
-
-// MARK: - Convenience init (no interactive content)
 
 extension EmergencyFlowView where InteractiveContent == EmptyView {
     init(

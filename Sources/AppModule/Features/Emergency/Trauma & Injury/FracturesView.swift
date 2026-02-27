@@ -4,49 +4,46 @@ struct FracturesView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "ASSESS INJURY",
-            instruction: "Look for limping, swelling, or a visible deformity. " +
-            "Check if the leg dangles abnormally or won't bear weight.",
-            audio: "Check for limping, swelling, or abnormal leg position.",
+            title: "MUZZLE THE DOG",
+            instruction: "Wrap a soft cloth or leash around the dog's muzzle. " +
+            "Even the gentlest dog will bite hard when a broken bone is touched.",
+            audio: "Muzzle the dog with a cloth or leash. They will bite because they are in severe pain.",
             illustrationIcon: "figure.walk",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         ),
         InfoStep(
-            title: "IMMOBILIZE",
-            instruction: "Prevent the dog from moving the injured limb. Do not attempt to \"reset\" the bone.",
-            audio: "Prevent the dog from moving the injured leg. Do not try to fix the bone yourself.",
+            title: "LOCATE THE BREAK",
+            instruction: "Look for a limb that is dangled, bent at an odd angle, " +
+            "or has a bone poking through the skin. " +
+            "DO NOT try to straighten the bone.",
+            audio: "Look for a bent or dangling leg. Do not try to straighten the bone.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
-            title: "MUZZLE IF NEEDED",
-            instruction: "Even gentle dogs may bite when in severe pain. " +
-            "Muzzle if it does not interfere with breathing.",
-            audio: "Use a muzzle if the dog is in pain, but only if they can breathe easily.",
+            title: "IMMOBILIZE THE LEG",
+            instruction: "Place the dog on a flat board or a thick, folded blanket. DO NOT apply a splint " +
+            "unless you are more than 1 hour from a vet, as you may worsen the break.",
+            audio: "Put the dog on a flat board or thick blanket. Do not try to splint the leg yourself.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
-            title: "PREVENT DAMAGE",
-            instruction: "Carry the dog or use a sling to prevent them from putting weight on the injury. " +
-            "No jumping or stairs.",
-            audio: "Carry the dog to the car. Do not let them walk on the injury.",
+            title: "COVER OPEN WOUNDS",
+            instruction: "If a bone is visible, cover the wound loosely with a clean, dry cloth to prevent " +
+            "dirt and bacteria from entering the bone.",
+            audio: "If the bone is poking through the skin, cover it loosely with a clean cloth.",
             illustrationIcon: "hand.point.up.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
-            title: "CHECK FOR BLEEDING",
-            instruction: "If the bone has broken the skin, apply a clean bandage loosely to prevent contamination.",
-            audio: "If there is an open wound, cover it loosely with a clean cloth.",
+            title: "EMERGENCY TRANSPORT",
+            instruction: "EMERGENCY. Carry the dog to the car. Drive to the vet " +
+            "immediately for pain relief and X-rays. " +
+            "Do not let the dog walk on the injury.",
+            audio: "Carry the dog to the car. Drive to the vet now for pain relief and X-rays.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
-        ),
-        InfoStep(
-            title: "EMERGENCY VET CARE",
-            instruction: "All fractures require X-rays and professional treatment immediately. Drive to the vet now.",
-            audio: "Go to the vet immediately for X-rays and pain relief.",
-            illustrationIcon: "cross.case.fill",
-            illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
         )
     ]
 

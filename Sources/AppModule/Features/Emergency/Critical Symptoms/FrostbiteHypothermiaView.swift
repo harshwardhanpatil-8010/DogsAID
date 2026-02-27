@@ -4,37 +4,42 @@ struct FrostbiteHypothermiaView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "RECOGNIZE SYMPTOMS",
-            instruction: "Look for shivering, lethargy, or cold, pale skin. Severe cases may lead to collapse.",
-            audio: "Watch for shivering, weakness, or cold skin.",
+            title: "CHECK SKIN TEMP",
+            instruction: "Touch the ears, paws, and tail. If they feel ice-cold, pale, or hard, " +
+            "they have frostbite. If the dog is shivering violently or lethargic, they have hypothermia.",
+            audio: "Touch the ears and paws. If they are cold and hard, or the dog is shivering, act now.",
             illustrationIcon: "snowflake",
             illustrationColor: Color(red: 0.35, green: 0.55, blue: 0.90)
         ),
         InfoStep(
             title: "MOVE TO WARMTH",
-            instruction: "Immediately move the dog to a warm, dry environment. Protect them from wind and moisture.",
-            audio: "Move your dog to a warm, dry area immediately.",
+            instruction: "Carry the dog into a warm building. DO NOT let them walk if their paws are frozen. " +
+            "Place them on a warm, dry blanket on the floor.",
+            audio: "Carry the dog into a warm room. Do not let them walk on frozen paws.",
             illustrationIcon: "house.fill",
             illustrationColor: Color(red: 0.45, green: 0.65, blue: 0.55)
         ),
         InfoStep(
-            title: "GENTLE WARMING",
-            instruction: "Wrap the dog in warm, dry blankets. Use your own body heat if possible.",
-            audio: "Move the dog inside. Wrap them in warm, dry blankets.",
+            title: "APPLY WARM COMPRESS",
+            instruction: "Soak a cloth in warm (not hot) water. Gently press it against the frozen " +
+            "ears or paws. DO NOT rub or massage the skin, as this breaks the frozen tissue.",
+            audio: "Press a warm, wet cloth to the ears and paws. Do not rub the skin.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.65, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "DO NOT RUB",
-            instruction: "Do not rub or massage affected areas, as this damages the frozen tissue.",
-            audio: "Do not rub or massage the skin. This can cause severe tissue damage.",
+            title: "WRAP IN BLANKETS",
+            instruction: "Wrap the dog's body in dry, warm blankets. Use your own body heat " +
+            "by lying next to the dog. DO NOT use heating pads directly on the skin.",
+            audio: "Wrap the dog in warm blankets. Use your own body heat to warm them up.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
-            title: "EMERGENCY VET CARE",
-            instruction: "Moderate to severe hypothermia requires professional treatment to prevent organ failure.",
-            audio: "Seek veterinary care immediately.",
+            title: "VET CARE MANDATORY",
+            instruction: "EMERGENCY. Go to the vet. Hypothermia causes the blood to become " +
+            "acidic and can lead to organ failure even after the dog is warmed.",
+            audio: "See a vet immediately. Internal organ damage can happen as the body warms up.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

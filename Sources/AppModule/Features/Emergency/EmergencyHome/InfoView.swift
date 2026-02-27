@@ -6,8 +6,10 @@ struct InfoView: View {
 
     var body: some View {
         List {
+
             purposeSection
             helpSection
+            usageSection
             designSection
             legalSection
         }
@@ -25,7 +27,19 @@ struct InfoView: View {
             }
         }
     }
+    private var usageSection: some View {
+        Section("How to use") {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Navigation")
+                    .font(.callout.weight(.semibold))
 
+                Text("Swipe left or right to move between emergency steps.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.vertical, 4)
+        }
+    }
     private var purposeSection: some View {
         Section("Purpose") {
             InfoRow(
@@ -40,7 +54,8 @@ struct InfoView: View {
         Section("When to seek help") {
             InfoRow(
                 title: "Contact a veterinarian immediately if",
-                message: "Your dog is unresponsive, seriously injured, breathing abnormally, or if you are unsure what to do."
+                message: "Your dog is unresponsive, seriously injured, breathing abnormally, " +
+                "or if you are unsure what to do."
             )
         }
     }

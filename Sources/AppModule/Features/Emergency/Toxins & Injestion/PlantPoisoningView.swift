@@ -1,53 +1,49 @@
-
 import SwiftUI
 
 struct PlantPoisoningView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "TAKE A PHOTO",
-            instruction: "Identify the plant or take a clear photo of the leaves and flowers for the vet.",
-            audio: "Identify the plant or take a photo of it for the veterinarian.",
+            title: "REMOVE PLANT PIECES",
+            instruction: "Use a damp cloth to wipe the inside of the dog's mouth and tongue. " +
+            "Remove any visible leaves, petals, or seeds.",
+            audio: "Wipe the inside of the mouth and tongue with a damp cloth to remove plant pieces.",
             illustrationIcon: "leaf.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
-            title: "REMOVE MATERIAL",
-            instruction: "Gently wipe the mouth with a damp cloth to remove any remaining plant pieces.",
-            audio: "Gently wipe the mouth to remove any plant pieces.",
+            title: "TAKE A PHOTO",
+            instruction: "Take a clear photo of the plant's leaves and flowers. If possible, put a " +
+            "sample of the plant in a plastic bag to bring to the vet.",
+            audio: "Take a photo of the plant or bring a sample in a bag for the vet.",
             illustrationIcon: "hand.wave.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
             title: "DO NOT INDUCE VOMITING",
-            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian.",
-            audio: "Do not make the dog vomit unless a vet tells you to.",
+            instruction: "DO NOT induce vomiting. Some plants are caustic and will burn the throat " +
+            "again on the way back up.",
+            audio: "Do not make the dog vomit. It can burn the throat.",
             illustrationIcon: "xmark.circle.fill",
             illustrationColor: Color(red: 0.90, green: 0.45, blue: 0.20)
         ),
         InfoStep(
-            title: "CALL POISON CONTROL",
-            instruction: "Contact your vet or a pet poison hotline immediately. Have the plant photo or name ready.",
-            audio: "Call your veterinarian or animal poison control immediately.",
-            illustrationIcon: "phone.fill",
-            illustrationColor: Color(red: 0.20, green: 0.65, blue: 0.90)
-        ),
-        InfoStep(
-            title: "OBSERVE SYMPTOMS",
-            instruction: "Watch for drooling, vomiting, tremors, or breathing difficulty.",
-            audio: "Watch for drooling, vomiting, or tremors.",
+            title: "WATCH FOR TREMORS",
+            instruction: "Watch the dog's legs and head for twitching or tremors. This indicates " +
+            "the plant toxin is affecting the nervous system.",
+            audio: "Watch for any twitching or shaking in the legs or head.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
-            title: "EMERGENCY TRANSPORT",
-            instruction: "Drive to the vet immediately. Bring a sample of the plant or the photo you took.",
-            audio: "Go to the vet immediately and bring the plant sample or photo.",
+            title: "EMERGENCY VET CARE",
+            instruction: "EMERGENCY. Drive to the vet immediately. Many common plants like Lilies, " +
+            "Azaleas, and Sago Palms cause rapid, irreversible organ failure.",
+            audio: "Drive to the vet now. Many common plants cause instant organ failure.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )
     ]
-
     var body: some View {
         EmergencyFlowView(
             steps: steps,

@@ -58,8 +58,8 @@ final class AudioCueManager: NSObject, ObservableObject {
         let utterance             = AVSpeechUtterance(string: text)
         utterance.voice           = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate            = 0.5
-        utterance.pitchMultiplier = 1.5
-        utterance.volume          = 0.8
+        utterance.pitchMultiplier = 1.4
+        utterance.volume          = 1.0
         synthesizer.speak(utterance)
     }
 

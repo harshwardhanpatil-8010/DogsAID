@@ -4,41 +4,42 @@ struct ElectricShockView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "DISABLE POWER",
-            instruction: "Do NOT touch the dog until the power source is turned off. " +
-            "Use a wooden stick to move wires if needed.",
-            audio: "Do not touch the dog until the power is off. Use a wooden object to move any live wires.",
+            title: "DISCONNECT POWER",
+            instruction: "DO NOT touch the dog if they are still touching a wire. Turn off the " +
+            "breaker or pull the plug. Use a wooden broom handle to push the wire away.",
+            audio: "Do not touch the dog until the power is off. Use a wooden handle to move the wire.",
             illustrationIcon: "bolt.fill",
             illustrationColor: Color(red: 0.95, green: 0.75, blue: 0.20)
         ),
         InfoStep(
-            title: "CHECK BREATHING",
-            instruction: "Check for regular breathing and a pulse behind the left elbow. " +
-            "Begin CPR if the dog is not breathing.",
-            audio: "Check for regular breathing and a pulse. Start CPR if needed.",
+            title: "CHECK THE MOUTH",
+            instruction: "Inspect the lips, tongue, and roof of the mouth for charred, white, or " +
+            "bright red burns. Electricity often causes severe internal mouth damage.",
+            audio: "Look for white or charred burns on the tongue and lips.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.35, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "CHECK MOUTH",
-            instruction: "Inspect the mouth for burns and check for regular breathing. " +
-            "Look for charred or swollen tissue.",
-            audio: "Check the mouth for burns and ensure the dog is breathing.",
+            title: "FEEL FOR HEARTBEAT",
+            instruction: "Slide your fingers behind the left elbow. If the heart has stopped, " +
+            "begin CPR immediately. Electric shock often causes the heart to stop.",
+            audio: "Feel for a heartbeat behind the left elbow. If none, start CPR immediately.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.30, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "MONITOR LUNGS",
-            instruction: "Electric shock can cause fluid to build up in the lungs hours later. " +
-            "Watch for coughing or gasping.",
-            audio: "Watch for coughing or gasping, which can happen hours later.",
+            title: "WATCH FOR COUGHING",
+            instruction: "Watch the dog's breathing. Electric shock causes fluid to fill the " +
+            "lungs (edema). If the dog starts coughing or gasping, they are suffocating.",
+            audio: "Watch for coughing or gasping. This means the lungs are filling with fluid.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.60, green: 0.55, blue: 0.75)
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "All electric shocks require an immediate veterinary exam to check for internal damage.",
-            audio: "Drive to the vet immediately for a professional exam.",
+            instruction: "EMERGENCY. Drive to the vet immediately. Internal electrical burns " +
+            "and lung fluid can be fatal hours after the initial shock.",
+            audio: "Drive to the vet now. Internal damage from electricity is fatal if not treated.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

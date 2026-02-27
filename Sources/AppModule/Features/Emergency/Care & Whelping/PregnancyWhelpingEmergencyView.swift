@@ -3,40 +3,41 @@ import SwiftUI
 struct PregnancyWhelpingEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "IDENTIFY TROUBLE",
-            instruction: "Seek help if there is more than 2 hours between puppies or " +
-            "30 minutes of strong straining with no puppy.",
-            audio: "Call the vet if there is more than two hours between puppies or thirty minutes of hard straining.",
+            title: "TIME THE STRAINING",
+            instruction: "Look at the clock. If the mother has been straining or pushing hard for " +
+            "more than 30 minutes with no puppy appearing, this is an EMERGENCY.",
+            audio: "If the mother pushes for thirty minutes with no puppy, go to the vet now.",
             illustrationIcon: "clock.fill",
             illustrationColor: Color(red: 0.55, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "GREEN DISCHARGE",
-            instruction: "Dark green discharge BEFORE the first puppy is born indicates an emergency " +
-            "(placental separation).",
-            audio: "Dark green discharge before any puppies are born is an emergency.",
+            title: "CHECK DISCHARGE COLOR",
+            instruction: "Look at the fluid coming from the mother. If you see dark green discharge " +
+            "and NO puppy has been born yet, the placentas are failing.",
+            audio: "Dark green discharge before the first puppy is born is a life-threatening emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         ),
         InfoStep(
-            title: "CHECK FOR OBSTRUCTION",
-            instruction: "If a puppy is partially visible but stuck for more than 5 minutes, DO NOT pull forcefully.",
+            title: "IDENTIFY STUCK PUPPY",
+            instruction: "If a puppy is visible but stuck in the birth canal, DO NOT pull on the " +
+            "puppy's legs or tail. This can cause fatal internal tearing.",
             audio: "Do not pull a stuck puppy. Contact a veterinarian immediately.",
             illustrationIcon: "waveform.path.ecg",
             illustrationColor: Color(red: 0.85, green: 0.35, blue: 0.45)
         ),
         InfoStep(
-            title: "EXCESSIVE BLEEDING",
-            instruction: "Some blood is normal, but heavy, continuous bleeding is a life-threatening emergency " +
-            "for the mother.",
-            audio: "Heavy, continuous bleeding is a life-threatening emergency.",
+            title: "MONITOR THE MOTHER",
+            instruction: "Look at the mother's gums. If they are white or she is bleeding heavily " +
+            "(more than 2 tablespoons), she is hemorrhaging internally.",
+            audio: "If the mother has white gums or heavy bleeding, she is hemorrhaging. Go to the vet now.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "If any abnormal signs occur, transport the mother to the vet immediately. " +
-            "Delayed care can be fatal.",
+            instruction: "EMERGENCY. Transport the mother and any born puppies to the vet immediately. " +
+            "A stuck puppy or hemorrhage will kill the mother and the litter.",
             audio: "Go to an emergency vet immediately if complications occur.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)

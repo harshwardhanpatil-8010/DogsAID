@@ -5,37 +5,41 @@ struct UrinaryBlockageView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "IDENTIFY STRAINING",
-            instruction: "Look for frequent, unsuccessful attempts to urinate. This is most common in male dogs.",
-            audio: "Look for straining to urinate with no results. This is an emergency.",
+            instruction: "Watch the dog while they try to pee. If they are hunched up and straining " +
+            "for more than 1 minute with only drops or no urine coming out, this is an EMERGENCY.",
+            audio: "Watch for straining with no urine. This is a life-threatening emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.80, green: 0.25, blue: 0.30)
         ),
         InfoStep(
-            title: "FATAL WARNING",
-            instruction: "A complete blockage is fatal within 24–48 hours. Go to the emergency vet immediately.",
-            audio: "A urinary blockage is fatal within forty-eight hours. Go to the emergency vet right now.",
+            title: "LOCATE THE BLADDER",
+            instruction: "Feel the lower abdomen between the back legs. A blocked bladder will feel " +
+            "like a hard, painful lemon or orange.",
+            audio: "Feel the lower belly between the back legs for a hard, lemon-sized lump.",
             illustrationIcon: "stopwatch.fill",
             illustrationColor: Color(red: 0.95, green: 0.45, blue: 0.15)
         ),
         InfoStep(
-            title: "KEEP DOG CALM",
-            instruction: "Restrict the dog's movement. DO NOT massage the bladder or apply pressure to the abdomen.",
-            audio: "Keep your dog calm and still. Do not press on the belly.",
+            title: "DO NOT PRESS",
+            instruction: "DO NOT squeeze or massage the bladder. High pressure can cause the bladder " +
+            "to burst inside the dog, leading to instant shock and death.",
+            audio: "Do not press on the bladder. It can burst and kill the dog instantly.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.55, green: 0.55, blue: 0.75)
         ),
         InfoStep(
-            title: "DO NOT TREAT AT HOME",
-            instruction: "DO NOT attempt to give medications or home remedies. " +
-            "This is a mechanical blockage that requires professional tools.",
-            audio: "Do not attempt home treatment. This requires a veterinarian.",
+            title: "LIMIT WATER",
+            instruction: "Remove the water bowl. If the dog drinks more, the bladder will fill further, " +
+            "increasing the risk of it bursting before you reach the vet.",
+            audio: "Remove the water bowl immediately. Do not let the dog drink.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
-            title: "IMMEDIATE VET CARE",
-            instruction: "Emergency catheterization and IV fluids are required immediately to save the dog's life.",
-            audio: "Go to an emergency vet immediately.",
+            title: "EMERGENCY VET CARE",
+            instruction: "EMERGENCY. Drive to the vet right now. A total blockage causes toxins " +
+            "to build up in the blood, causing heart failure within 24 hours.",
+            audio: "Drive to the emergency vet now. This will cause heart failure if not treated immediately.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

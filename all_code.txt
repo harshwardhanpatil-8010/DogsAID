@@ -140,8 +140,8 @@ final class AudioCueManager: NSObject, ObservableObject {
 
     // MARK: Callbacks
 
-    var onFinished  : (() -> Void)?
-    var onWillSpeak : ((NSRange, Int) -> Void)?
+    var onFinished: (() -> Void)?
+    var onWillSpeak: ((NSRange, Int) -> Void)?
 
     // MARK: Private
 
@@ -256,15 +256,15 @@ import AVFoundation
 
 final class MetronomeManager {
 
-    private let engine     = AVAudioEngine()
-    private let player     = AVAudioPlayerNode()
-    private let sampleRate : Double = 44100
-    private lazy var format     = AVAudioFormat(
+    private let engine = AVAudioEngine()
+    private let player = AVAudioPlayerNode()
+    private let sampleRate: Double = 44100
+    private lazy var format = AVAudioFormat(
         standardFormatWithSampleRate: sampleRate, channels: 1
     )!
-    private lazy var beatBuffer : AVAudioPCMBuffer = makeBeatBuffer()
+    private lazy var beatBuffer: AVAudioPCMBuffer = makeBeatBuffer()
 
-    private var timerSrc  : DispatchSourceTimer?
+    private var timerSrc: DispatchSourceTimer?
     private let timerQueue = DispatchQueue(label: "cpr.metronome", qos: .userInteractive)
 
     init() {
@@ -276,7 +276,6 @@ final class MetronomeManager {
 
     func start(bpm: Double) {
         stop()
-
 
         guard !engine.isRunning else { return }
         do {
@@ -303,35 +302,34 @@ final class MetronomeManager {
         timerSrc = nil
         if player.isPlaying { player.stop() }
         if engine.isRunning { engine.stop() }
-
     }
 
     // MARK: - Sound design
 
     private func makeBeatBuffer() -> AVAudioPCMBuffer {
-        let duration     = 0.12
-        let frames       = AVAudioFrameCount(sampleRate * duration)
-        let buffer       = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames)!
+        let duration = 0.12
+        let frames = AVAudioFrameCount(sampleRate * duration)
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames)!
         buffer.frameLength = frames
 
-        let data         = buffer.floatChannelData![0]
-        let sr           = Float(sampleRate)
-        let attackFrames = Int(sr * 0.002)
+        let data = buffer.floatChannelData![0]
+        let sampleRateFloat = Float(sampleRate)
+        let attackFrames = Int(sampleRateFloat * 0.002)
 
-        for i in 0..<Int(frames) {
-            let t = Float(i) / sr
+        for index in 0..<Int(frames) {
+            let time = Float(index) / sampleRateFloat
 
             let envelope: Float
-            if i < attackFrames {
-                envelope = Float(i) / Float(attackFrames)
+            if index < attackFrames {
+                envelope = Float(index) / Float(attackFrames)
             } else {
-                envelope = exp(-6.0 * Float(i - attackFrames) / (sr * Float(duration)))
+                envelope = exp(-6.0 * Float(index - attackFrames) / (sampleRateFloat * Float(duration)))
             }
 
-            let body      = sin(2 * .pi * 65  * t)
-            let transient = sin(2 * .pi * 180 * t) * 0.4 * exp(-18.0 * t / Float(duration))
+            let body = sin(2 * .pi * 65 * time)
+            let transient = sin(2 * .pi * 180 * time) * 0.4 * exp(-18.0 * time / Float(duration))
 
-            data[i] = (body + transient) * envelope * 0.75
+            data[index] = (body + transient) * envelope * 0.75
         }
         return buffer
     }
@@ -464,7 +462,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
     @State private var didSwipeManually = false
     @State private var isPaused = false
     @State private var isActive = false
-    @State private var advanceTask: Task<Void, Never>? = nil
+    @State private var advanceTask: Task<Void, Never>?
 
     @StateObject private var audio = AudioCueManager()
     @StateObject private var tts = TTSCoordinator()
@@ -517,7 +515,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         .environment(\.stopEmergencyAudio, EmergencyAudioStopAction {
             silenceAudio()
         })
-        .onChange(of: index) { oldValue, newValue in
+        .onChange(of: index) { _, newValue in
             guard isActive, !isPaused else { return }
             didSwipeManually = true
             speakStep(at: newValue)
@@ -561,7 +559,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .onChange(of: scenePhase) { oldValue, newValue in
+        .onChange(of: scenePhase) { _, newValue in
             if newValue != .active { teardown() }
         }
     }
@@ -572,7 +570,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
         isActive = false
         advanceTask?.cancel()
         advanceTask = nil
-        audio.onFinished  = nil
+        audio.onFinished = nil
         audio.onWillSpeak = nil
         audio.stop()
         tts.reset()
@@ -580,13 +578,11 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
 
     // MARK: - Audio control
 
-
     private func silenceAudio() {
-        audio.onFinished  = nil
+        audio.onFinished = nil
         audio.onWillSpeak = nil
         audio.stop()
         tts.reset()
-
 
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(200))
@@ -650,7 +646,7 @@ struct EmergencyFlowView<Step: EmergencyStep, InteractiveContent: View>: View {
             guard !isPaused else { return }
             guard index == advancingFrom else { return }
             didSwipeManually = false
-            index = index + 1
+            index += 1
             speakStep(at: index)
         }
     }
@@ -768,7 +764,6 @@ struct EmergencyPageView<Step: EmergencyStep, InteractiveContent: View>: View {
                         .padding(.bottom, 20)
                     }
 
-                  
                     Spacer(minLength: 60)
                 }
             }
@@ -803,8 +798,6 @@ extension EmergencyPageView where InteractiveContent == EmptyView {
 }
 
 ===== Sources/AppModule/Core/EmergencyFlow/EmergencyPaginationIndicator.swift =====
-
-
 import SwiftUI
 
 struct EmergencyPaginationIndicator: View {
@@ -858,12 +851,12 @@ struct AudioDuration {
     }
 
     static func rawSeconds(for text: String, wordsPerMinute: Double = 140) -> TimeInterval {
-        let wc = Double(
+        let wordCount = Double(
             text.components(separatedBy: .whitespacesAndNewlines)
                 .filter { !$0.isEmpty }.count
         )
-        guard wc > 0, wordsPerMinute > 0 else { return 0 }
-        return (wc / wordsPerMinute) * 60
+        guard wordCount > 0, wordsPerMinute > 0 else { return 0 }
+        return (wordCount / wordsPerMinute) * 60
     }
 
     static func totalEstimate(for steps: [String], wordsPerMinute: Double = 140) -> String {
@@ -871,27 +864,24 @@ struct AudioDuration {
     }
 
     private static func formatted(seconds: TimeInterval) -> String {
-        let t = Int(seconds.rounded())
-        guard t > 0 else { return "< 1 sec" }
-        let m = t / 60; let s = t % 60
-        switch (m, s) {
-        case (0, let s): return "~\(s) sec"
-        case (let m, 0): return "~\(m) min"
-        default:         return "~\(m) min \(s) sec"
+        let totalSeconds = Int(seconds.rounded())
+        guard totalSeconds > 0 else { return "< 1 sec" }
+        let minutes = totalSeconds / 60
+        let secondsLeft = totalSeconds % 60
+        switch (minutes, secondsLeft) {
+        case (0, let remainingSeconds): return "~\(remainingSeconds) sec"
+        case (let totalMinutes, 0): return "~\(totalMinutes) min"
+        default: return "~\(minutes) min \(secondsLeft) sec"
         }
     }
 }
 
 ===== Sources/AppModule/Core/EmergencyFlow/EmergencyStep.swift =====
-
-
 import SwiftUI
 
 // MARK: - EmergencyStep
 
-
 public protocol EmergencyStep: Identifiable {
-
     var title: String { get }
     var instruction: String { get }
     var audio: String { get }
@@ -940,7 +930,7 @@ enum Haptic {
     @MainActor
     static func success() {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            AudioServicesPlaySystemSound(1407) 
+            AudioServicesPlaySystemSound(1407)
         } else {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
@@ -949,7 +939,6 @@ enum Haptic {
 }
 
 ===== Sources/AppModule/Features/Checklist/ChecklistNotificationManager.swift =====
-
 import Foundation
 @preconcurrency import UserNotifications
 
@@ -960,19 +949,16 @@ final class ChecklistNotificationManager: ObservableObject {
 
     // MARK: Published
 
-
     @Published private(set) var isAuthorized = false
-
 
     @Published private(set) var hasRequestedPermission = false
 
     // MARK: Keys
 
-    private let permissionAskedKey    = "checklist_notif_permission_asked"
-    private let lastScheduledKey      = "checklist_notif_last_scheduled"
-    private let notifCategoryID       = "CHECKLIST_REMINDER"
+    private let permissionAskedKey = "checklist_notif_permission_asked"
+    private let lastScheduledKey = "checklist_notif_last_scheduled"
+    private let notifCategoryID = "CHECKLIST_REMINDER"
     private let notifIdentifierPrefix = "checklist_missing_"
-
 
     private let reminderIntervalDays: Int = 7
 
@@ -982,7 +968,6 @@ final class ChecklistNotificationManager: ObservableObject {
     }
 
     // MARK: - Permission
-
 
     func refreshAuthorizationStatus() async {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
@@ -1006,11 +991,9 @@ final class ChecklistNotificationManager: ObservableObject {
     func scheduleRemindersIfNeeded(missingItems: [String], totalCount: Int) {
         guard isAuthorized else { return }
         guard !missingItems.isEmpty else {
-
             cancelAllReminders()
             return
         }
-
 
         if let last = UserDefaults.standard.object(forKey: lastScheduledKey) as? Date {
             let daysSince = Calendar.current.dateComponents([.day], from: last, to: Date()).day ?? 0
@@ -1021,7 +1004,6 @@ final class ChecklistNotificationManager: ObservableObject {
         scheduleReminders(for: missingItems)
         UserDefaults.standard.set(Date(), forKey: lastScheduledKey)
     }
-
 
     func cancelAllReminders() {
         let center = UNUserNotificationCenter.current()
@@ -1036,43 +1018,44 @@ final class ChecklistNotificationManager: ObservableObject {
     // MARK: - Private scheduling logic
 
     private func scheduleReminders(for missingItems: [String]) {
-        let center   = UNUserNotificationCenter.current()
+        let center = UNUserNotificationCenter.current()
         let shuffled = missingItems.shuffled()
         let schedules: [(daysFromNow: Int, item: String)] = [
-            (7,  shuffled[0]),
+            (7, shuffled[0]),
             (14, shuffled.count > 1 ? shuffled[1] : shuffled[0]),
-            (21, shuffled.count > 2 ? shuffled[2] : shuffled[0]),
+            (21, shuffled.count > 2 ? shuffled[2] : shuffled[0])
         ]
 
         for (idx, schedule) in schedules.enumerated() {
-            let content        = UNMutableNotificationContent()
-            content.sound      = .default
+            let content = UNMutableNotificationContent()
+            content.sound = .default
             content.categoryIdentifier = notifCategoryID
 
             let remaining = missingItems.count
 
             if remaining == 1 {
                 content.title = "One item missing from your kit 🩹"
-                content.body  = "You're almost ready! Add \"\(schedule.item)\" to complete your dog's first aid kit."
+                content.body = "You're almost ready! Add \"\(schedule.item)\" to complete your dog's first aid kit."
             } else {
                 content.title = "\(remaining) items missing from your kit 🩹"
-                content.body  = "Don't forget: \"\(schedule.item)\" — and \(remaining - 1) other item\(remaining - 1 == 1 ? "" : "s") — could save your dog's life."
+                let plural = remaining - 1 == 1 ? "" : "s"
+                content.body = "Don't forget: \"\(schedule.item)\" — and \(remaining - 1) other item\(plural) " +
+                "— could save your dog's life."
             }
 
-            
-            var triggerDate        = Calendar.current.date(
+            var triggerDate = Calendar.current.date(
                 byAdding: .day, value: schedule.daysFromNow, to: Date()
             ) ?? Date()
-            triggerDate            = Calendar.current.date(
+            triggerDate = Calendar.current.date(
                 bySettingHour: 10, minute: 0, second: 0, of: triggerDate
             ) ?? triggerDate
 
             let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate)
-            let trigger    = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request    = UNNotificationRequest(
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let request = UNNotificationRequest(
                 identifier: "\(notifIdentifierPrefix)\(idx)",
-                content   : content,
-                trigger   : trigger
+                content: content,
+                trigger: trigger
             )
 
             center.add(request)
@@ -1084,9 +1067,9 @@ final class ChecklistNotificationManager: ObservableObject {
 import SwiftUI
 
 struct ChecklistItem: Identifiable, Hashable {
-    let id          : String
-    let description : String
-    let usage       : String
+    let id: String
+    let description: String
+    let usage: String
 }
 
 struct IdentifiableString: Identifiable, Hashable {
@@ -1102,9 +1085,9 @@ struct ChecklistView: View {
 
     // MARK: State
 
-    @State private var checkedItems     : Set<String>         = []
-    @State private var showConfetti     : Bool                = false
-    @State private var selectedInfoItem : IdentifiableString? = nil
+    @State private var checkedItems: Set<String> = []
+    @State private var showConfetti: Bool = false
+    @State private var selectedInfoItem: IdentifiableString?
 
     @StateObject private var notifManager = ChecklistNotificationManager.shared
 
@@ -1170,7 +1153,7 @@ struct ChecklistView: View {
             id: "Muzzles",
             description: "Quick-release fabric or basket style. Sizes for all breeds.",
             usage: "PAIN EMERGENCIES: Apply BEFORE treating injuries. Even sweet dogs bite when hurt."
-        ),
+        )
     ]
 
     private var progress: Double {
@@ -1205,7 +1188,6 @@ struct ChecklistView: View {
                     }
                     .padding(.vertical, 8)
                 }
-
 
                 Section {
                     ForEach(items) { item in
@@ -1291,14 +1273,13 @@ struct ChecklistView: View {
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
+                        ToolbarItem(placement: .cancellationAction) {
                             Button {
                                 selectedInfoItem = nil
                             } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.title3)
-                                    .foregroundColor(.secondary)
+                                Image(systemName: "xmark")
                             }
+                            .accessibilityLabel("Close")
                         }
                     }
                     .presentationDetents([.medium, .large])
@@ -1315,7 +1296,7 @@ struct ChecklistView: View {
                 await notifManager.requestPermission()
                 notifManager.scheduleRemindersIfNeeded(
                     missingItems: missingItems,
-                    totalCount  : items.count
+                    totalCount: items.count
                 )
             }
         }
@@ -1338,7 +1319,7 @@ struct ChecklistView: View {
         if notifManager.isAuthorized {
             notifManager.scheduleRemindersIfNeeded(
                 missingItems: missingItems,
-                totalCount  : items.count
+                totalCount: items.count
             )
         }
 
@@ -1454,14 +1435,16 @@ struct PregnancyWhelpingEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "IDENTIFY TROUBLE",
-            instruction: "Seek help if there is more than 2 hours between puppies or 30 minutes of strong straining with no puppy.",
+            instruction: "Seek help if there is more than 2 hours between puppies or " +
+            "30 minutes of strong straining with no puppy.",
             audio: "Call the vet if there is more than two hours between puppies or thirty minutes of hard straining.",
             illustrationIcon: "clock.fill",
             illustrationColor: Color(red: 0.55, green: 0.55, blue: 0.85)
         ),
         InfoStep(
             title: "GREEN DISCHARGE",
-            instruction: "Dark green discharge BEFORE the first puppy is born indicates an emergency (placental separation).",
+            instruction: "Dark green discharge BEFORE the first puppy is born indicates an emergency " +
+            "(placental separation).",
             audio: "Dark green discharge before any puppies are born is an emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
@@ -1475,14 +1458,16 @@ struct PregnancyWhelpingEmergencyView: View {
         ),
         InfoStep(
             title: "EXCESSIVE BLEEDING",
-            instruction: "Some blood is normal, but heavy, continuous bleeding is a life-threatening emergency for the mother.",
+            instruction: "Some blood is normal, but heavy, continuous bleeding is a life-threatening emergency " +
+            "for the mother.",
             audio: "Heavy, continuous bleeding is a life-threatening emergency.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "If any abnormal signs occur, transport the mother to the vet immediately. Delayed care can be fatal.",
+            instruction: "If any abnormal signs occur, transport the mother to the vet immediately. " +
+            "Delayed care can be fatal.",
             audio: "Go to an emergency vet immediately if complications occur.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
@@ -1507,8 +1492,6 @@ struct PregnancyWhelpingView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Care & Whelping/VomitingView.swift =====
-
-
 import SwiftUI
 
 struct VomitingView: View {
@@ -1516,46 +1499,52 @@ struct VomitingView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "WITHHOLD FOOD",
-            instruction: "Remove food for 12–24 hours to let the stomach rest. Provide small amounts of water or ice cubes to prevent dehydration.",
+            instruction: "Remove food for 12–24 hours to let the stomach rest. " +
+            "Provide small amounts of water or ice cubes to prevent dehydration.",
             audio: "Do not feed the dog for twelve hours, but offer small sips of water.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.20, green: 0.50, blue: 0.80)
         ),
         InfoStep(
             title: "BLOAT CHECK",
-            instruction: "If vomiting is accompanied by a hard, swollen belly or unproductive retching, go to the vet immediately.",
+            instruction: "If vomiting is accompanied by a hard, swollen belly or unproductive retching, " +
+            "go to the vet immediately.",
             audio: "If the dog has a swollen belly or can't vomit, see a vet now.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         ),
         InfoStep(
             title: "IDENTIFY TOXINS",
-            instruction: "Check if the dog could have ingested toxic foods, plants, or household chemicals. Note the color and consistency of the vomit.",
+            instruction: "Check if the dog could have ingested toxic foods, plants, or household chemicals. " +
+            "Note the color and consistency of the vomit.",
             audio: "Check for ingested toxins and note the appearance of the vomit.",
             illustrationIcon: "fork.knife",
             illustrationColor: Color(red: 0.55, green: 0.38, blue: 0.22)
         ),
         InfoStep(
             title: "CHECK FOR SHOCK",
-            instruction: "Look for pale gums, extreme lethargy, or a rapid heartbeat. These are signs of a severe internal issue.",
+            instruction: "Look for pale gums, extreme lethargy, or a rapid heartbeat. " +
+            "These are signs of a severe internal issue.",
             audio: "Watch for pale gums or extreme weakness.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.18, green: 0.52, blue: 0.92)
         ),
         InfoStep(
             title: "REINTRODUCE FOOD",
-            instruction: "After 12 hours without vomiting, offer a bland diet of boiled chicken and rice in small portions.",
+            instruction: "After 12 hours without vomiting, offer a bland diet of boiled chicken and rice " +
+            "in small portions.",
             audio: "Offer small portions of boiled chicken and rice after twelve hours.",
             illustrationIcon: "takeoutbag.and.cup.and.straw.fill",
             illustrationColor: Color(red: 0.22, green: 0.62, blue: 0.22)
         ),
         InfoStep(
             title: "CALL THE VET",
-            instruction: "If vomiting persists for more than 24 hours, or if the dog is very young or old, seek professional advice.",
+            instruction: "If vomiting persists for more than 24 hours, or if the dog is very young or old, " +
+            "seek professional advice.",
             audio: "Call the vet if vomiting continues or if your dog is very young or old.",
             illustrationIcon: "phone.fill",
             illustrationColor: Color(red: 0.55, green: 0.18, blue: 0.78)
-        ),
+        )
     ]
 
     var body: some View {
@@ -1576,7 +1565,6 @@ struct VomitingView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Critical Symptoms/BlueGums.swift =====
-
 import SwiftUI
 
 struct BlueGumsView: View {
@@ -1598,7 +1586,8 @@ struct BlueGumsView: View {
         ),
         InfoStep(
             title: "FRESH AIR",
-            instruction: "Immediately move the dog to an area with fresh air. Open windows if you are indoors or in a car.",
+            instruction: "Immediately move the dog to an area with fresh air. " +
+            "Open windows if you are indoors or in a car.",
             audio: "Get fresh air immediately. Open all windows.",
             illustrationIcon: "wind",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
@@ -1657,7 +1646,8 @@ struct BreathingDifficultyView: View {
         ),
         InfoStep(
             title: "OBSERVE BREATHING",
-            instruction: "Watch for labored breathing, gasping, or using the belly to breathe. These are signs of a major emergency.",
+            instruction: "Watch for labored breathing, gasping, or using the belly to breathe. " +
+            "These are signs of a major emergency.",
             audio: "Watch for gasping or heavy breathing effort.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
@@ -1671,14 +1661,16 @@ struct BreathingDifficultyView: View {
         ),
         InfoStep(
             title: "ALLOW COUGHING",
-            instruction: "If the dog is coughing but still breathing, allow them to continue. Do not reach into the throat.",
+            instruction: "If the dog is coughing but still breathing, allow them to continue. " +
+            "Do not reach into the throat.",
             audio: "If the dog can breathe, let them cough.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.55, green: 0.75, blue: 0.95)
         ),
         InfoStep(
             title: "SEEK VET CARE",
-            instruction: "Labored breathing requires immediate veterinary intervention. Transport the dog to the vet now.",
+            instruction: "Labored breathing requires immediate veterinary intervention. " +
+            "Transport the dog to the vet now.",
             audio: "If your dog is struggling to breathe, go to the vet immediately.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
@@ -1755,7 +1747,6 @@ struct FrostbiteHypothermiaView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Critical Symptoms/Heatstroke.swift =====
-
 import SwiftUI
 
 struct HeatstrokeView: View {
@@ -1770,14 +1761,16 @@ struct HeatstrokeView: View {
         ),
         InfoStep(
             title: "COOL GENTLY",
-            instruction: "Soak the coat with lukewarm water. DO NOT use ice or freezing water as it causes dangerous shock.",
+            instruction: "Soak the coat with lukewarm water. " +
+            "DO NOT use ice or freezing water as it causes dangerous shock.",
             audio: "Wet the fur with lukewarm water. Do not use ice or freezing water.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
         ),
         InfoStep(
             title: "TARGET TEMPERATURE",
-            instruction: "Aim to cool the dog until their temperature reaches 103°F. Stop active cooling once this target is reached.",
+            instruction: "Aim to cool the dog until their temperature reaches 103°F. " +
+            "Stop active cooling once this target is reached.",
             audio: "Cool the dog until their temperature is 103 degrees, then stop.",
             illustrationIcon: "thermometer.high",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
@@ -1791,7 +1784,8 @@ struct HeatstrokeView: View {
         ),
         InfoStep(
             title: "VET CARE MANDATORY",
-            instruction: "Even if the dog seems better, internal organ damage is likely. Professional vet care is mandatory.",
+            instruction: "Even if the dog seems better, internal organ damage is likely. " +
+            "Professional vet care is mandatory.",
             audio: "You must see a vet immediately. Internal damage can be fatal even if the dog looks better.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.98, green: 0.25, blue: 0.10)
@@ -1816,9 +1810,6 @@ struct HeatstrokeView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Critical Symptoms/SeizuresView.swift =====
-
-
-
 import SwiftUI
 
 struct SeizuresView: View {
@@ -1847,14 +1838,16 @@ struct SeizuresView: View {
         ),
         InfoStep(
             title: "MONITOR RECOVERY",
-            instruction: "Expect confusion or temporary blindness after the seizure. Keep the dog calm and quiet during recovery.",
+            instruction: "Expect confusion or temporary blindness after the seizure. " +
+            "Keep the dog calm and quiet during recovery.",
             audio: "Post-seizure confusion is normal. Keep the dog calm and quiet.",
             illustrationIcon: "bed.double.fill",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
             title: "VET CONSULTATION",
-            instruction: "If the seizure lasts more than 3 minutes, or if multiple seizures occur, go to the vet immediately.",
+            instruction: "If the seizure lasts more than 3 minutes, or if multiple seizures occur, " +
+            "go to the vet immediately.",
             audio: "If the seizure lasts longer than three minutes, or if they happen in clusters, go to the vet now.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
@@ -1907,7 +1900,8 @@ struct UrinaryBlockageView: View {
         ),
         InfoStep(
             title: "DO NOT TREAT AT HOME",
-            instruction: "DO NOT attempt to give medications or home remedies. This is a mechanical blockage that requires professional tools.",
+            instruction: "DO NOT attempt to give medications or home remedies. " +
+            "This is a mechanical blockage that requires professional tools.",
             audio: "Do not attempt home treatment. This requires a veterinarian.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
@@ -1941,16 +1935,13 @@ struct UrinaryBlockageView_Previews: PreviewProvider {
 ===== Sources/AppModule/Features/Emergency/EmergencyHome/EmergencyHomeView.swift =====
 import SwiftUI
 
-// MARK: - EmergencyHomeView
-
 struct EmergencyHomeView: View {
 
     @State private var searchText = ""
     @State private var intentRoute: EmergencyRoute?
+    @State private var showInfoSheet = false
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
-    // MARK: Derived State
 
     private var searchResults: [EmergencyTopicModel] {
         guard !searchText.isEmpty else { return [] }
@@ -1958,8 +1949,6 @@ struct EmergencyHomeView: View {
             $0.title.localizedCaseInsensitiveContains(searchText)
         }
     }
-
-    // MARK: Body
 
     var body: some View {
         List {
@@ -1969,16 +1958,34 @@ struct EmergencyHomeView: View {
         .listStyle(.insetGrouped)
         .navigationTitle("Emergencies")
         .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .inline : .large)
-        .searchable(text: $searchText, prompt: "Search emergencies…")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showInfoSheet = true
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+                .accessibilityLabel("App information")
+            }
+        }
+        .searchable(
+            text: $searchText,
+            prompt: "What’s happening?"
+        )
         .scrollDismissesKeyboard(.interactively)
-        .onChange(of: searchText) { oldValue, newValue in
+        .sheet(isPresented: $showInfoSheet) {
+            NavigationStack {
+                InfoView()
+            }
+            .presentationDetents([.large])
+            .presentationDragIndicator(.hidden)
+        }
+        .onChange(of: searchText) { _, newValue in
             handleSearchChange(newValue)
         }
-
         .navigationDestination(for: EmergencyRoute.self) { route in
             EmergencyRouter.destination(for: route)
         }
-        
         .navigationDestination(isPresented: Binding(
             get: { intentRoute != nil },
             set: { if !$0 { intentRoute = nil } }
@@ -1988,8 +1995,6 @@ struct EmergencyHomeView: View {
             }
         }
     }
-
-    // MARK: - Sections
 
     @ViewBuilder
     private var heroImageSection: some View {
@@ -2032,14 +2037,14 @@ struct EmergencyHomeView: View {
     private var emptySearchSection: some View {
         Section {
             VStack(spacing: 12) {
-                Image(systemName: "magnifyingglass")
+                Image(systemName: "exclamationmark.triangle.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundStyle(.tertiary)
 
-                Text("No Results")
+                Text("Not sure what’s wrong?")
                     .font(.system(size: 20, weight: .semibold))
 
-                Text("No results for \"\(searchText)\".\nTry a different search term.")
+                Text("Try typing what you see.\nExample: collapsed, breathing trouble, bleeding.")
                     .font(.system(size: 14))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -2051,14 +2056,11 @@ struct EmergencyHomeView: View {
         }
     }
 
-    // MARK: - Intent Handling
-
     private func handleSearchChange(_ newValue: String) {
         guard let intent = EmergencyIntentResolver.resolve(from: newValue) else { return }
         intentRoute = EmergencyIntentResolver.route(for: intent)
+        searchText = ""
     }
-
-    // MARK: - Helpers
 
     private func sectionHeader(_ title: String) -> some View {
         Text(title)
@@ -2069,16 +2071,20 @@ struct EmergencyHomeView: View {
     }
 }
 
-// MARK: - TopicListRow
-
-
 struct TopicListRow: View {
     let topic: EmergencyTopicModel
 
     var body: some View {
         NavigationLink(value: topic.route) {
             HStack(spacing: 14) {
-                topicIcon
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(topic.iconColor)
+                        .frame(width: 32, height: 32)
+                    Image(systemName: topic.icon)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
                 Text(topic.title)
                     .font(.system(size: 17))
                     .foregroundStyle(.primary)
@@ -2086,20 +2092,7 @@ struct TopicListRow: View {
             .padding(.vertical, 2)
         }
     }
-
-    private var topicIcon: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(topic.iconColor)
-                .frame(width: 32, height: 32)
-            Image(systemName: topic.icon)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(.white)
-        }
-    }
 }
-
-// MARK: - Preview
 
 #Preview {
     NavigationStack {
@@ -2114,34 +2107,74 @@ enum EmergencyRouter {
 
     @MainActor @ViewBuilder
     static func destination(for route: EmergencyRoute) -> some View {
+        if let view = lifeThreateningDestination(for: route) {
+            view
+        } else if let view = traumaDestination(for: route) {
+            view
+        } else if let view = toxinsDestination(for: route) {
+            view
+        } else if let view = symptomsDestination(for: route) {
+            view
+        } else {
+            careDestination(for: route)
+        }
+    }
+
+    @MainActor
+    private static func lifeThreateningDestination(for route: EmergencyRoute) -> AnyView? {
         switch route {
-        case .dogCPR:                DogCPREmergencyView()
-        case .choking:               ChokingEmergencyView()
-        case .drowning:              DrowningEmergencyView()
-        case .bloat:                 BloatView()
-        case .anaphylaxis:           AnaphylaxisView()
+        case .dogCPR:      return AnyView(DogCPREmergencyView())
+        case .choking:     return AnyView(ChokingEmergencyView())
+        case .drowning:    return AnyView(DrowningEmergencyView())
+        case .bloat:       return AnyView(BloatView())
+        case .anaphylaxis: return AnyView(AnaphylaxisView())
+        default:           return nil
+        }
+    }
 
-        case .bleedingControl:       BleedingControlView()
-        case .fractures:             FracturesView()
-        case .hitByCar:              HitByCarView()
-        case .temperatureBurns:      TemperatureBurnsView()
-        case .electricShock:         ElectricShockView()
-        case .eyeInjuries:           EyeInjuriesView()
+    @MainActor
+    private static func traumaDestination(for route: EmergencyRoute) -> AnyView? {
+        switch route {
+        case .bleedingControl:  return AnyView(BleedingControlView())
+        case .fractures:        return AnyView(FracturesView())
+        case .hitByCar:         return AnyView(HitByCarView())
+        case .temperatureBurns: return AnyView(TemperatureBurnsView())
+        case .electricShock:    return AnyView(ElectricShockView())
+        case .eyeInjuries:      return AnyView(EyeInjuriesView())
+        default:                return nil
+        }
+    }
 
-        case .poisonExposure:        PoisonExposureView()
-        case .plantPoisoning:        PlantPoisoningView()
-        case .foodPoisoning:         FoodPoisoningView()
-        case .snakeBitesStings:      SnakeBitesStingsView()
+    @MainActor
+    private static func toxinsDestination(for route: EmergencyRoute) -> AnyView? {
+        switch route {
+        case .poisonExposure:   return AnyView(PoisonExposureView())
+        case .plantPoisoning:   return AnyView(PlantPoisoningView())
+        case .foodPoisoning:    return AnyView(FoodPoisoningView())
+        case .snakeBitesStings: return AnyView(SnakeBitesStingsView())
+        default:                return nil
+        }
+    }
 
-        case .seizures:              SeizuresView()
-        case .heatstroke:            HeatstrokeView()
-        case .frostbiteHypothermia:  FrostbiteHypothermiaView()
-        case .blueGums:              BlueGumsView()
-        case .breathingDifficulty:   BreathingDifficultyView()
-        case .urinaryBlockage:       UrinaryBlockageView()
+    @MainActor
+    private static func symptomsDestination(for route: EmergencyRoute) -> AnyView? {
+        switch route {
+        case .seizures:             return AnyView(SeizuresView())
+        case .heatstroke:           return AnyView(HeatstrokeView())
+        case .frostbiteHypothermia: return AnyView(FrostbiteHypothermiaView())
+        case .blueGums:             return AnyView(BlueGumsView())
+        case .breathingDifficulty:  return AnyView(BreathingDifficultyView())
+        case .urinaryBlockage:      return AnyView(UrinaryBlockageView())
+        default:                    return nil
+        }
+    }
 
-        case .pregnancyWhelping:     PregnancyWhelpingEmergencyView()
-        case .vomiting:              VomitingView()
+    @MainActor @ViewBuilder
+    private static func careDestination(for route: EmergencyRoute) -> some View {
+        switch route {
+        case .pregnancyWhelping: PregnancyWhelpingEmergencyView()
+        case .vomiting:          VomitingView()
+        default:                 EmptyView()
         }
     }
 }
@@ -2218,9 +2251,19 @@ enum EmergencyTopicCatalog {
         .init(title: "Bleeding Control", icon: "bandage.fill", iconColor: .red, route: .bleedingControl),
         .init(title: "Fractures & Sprains", icon: "staroflife.fill", iconColor: .brown, route: .fractures),
         .init(title: "Hit By Car", icon: "car.fill", iconColor: .purple, route: .hitByCar),
-        .init(title: "Burns & Temperature Injury", icon: "thermometer.sun.fill", iconColor: .orange, route: .temperatureBurns),
+        .init(
+            title: "Burns & Temperature Injury",
+            icon: "thermometer.sun.fill",
+            iconColor: .orange,
+            route: .temperatureBurns
+        ),
         .init(title: "Electric Shock", icon: "bolt.fill", iconColor: .yellow, route: .electricShock),
-        .init(title: "Eye Injuries", icon: "eye.trianglebadge.exclamationmark.fill", iconColor: .red, route: .eyeInjuries)
+        .init(
+            title: "Eye Injuries",
+            icon: "eye.trianglebadge.exclamationmark.fill",
+            iconColor: .red,
+            route: .eyeInjuries
+        )
     ]
 
     static let toxinsAndIngestion: [EmergencyTopicModel] = [
@@ -2236,7 +2279,12 @@ enum EmergencyTopicCatalog {
         .init(title: "Frostbite & Hypothermia", icon: "snowflake", iconColor: .blue, route: .frostbiteHypothermia),
         .init(title: "Blue Gums", icon: "lungs.fill", iconColor: .blue, route: .blueGums),
         .init(title: "Breathing Difficulty", icon: "waveform.path", iconColor: .cyan, route: .breathingDifficulty),
-        .init(title: "Urinary Blockage", icon: "exclamationmark.triangle.fill", iconColor: .red, route: .urinaryBlockage)
+        .init(
+            title: "Urinary Blockage",
+            icon: "exclamationmark.triangle.fill",
+            iconColor: .red,
+            route: .urinaryBlockage
+        )
     ]
 
     static let careAndWhelping: [EmergencyTopicModel] = [
@@ -2255,9 +2303,95 @@ enum EmergencyTopicCatalog {
     static let allTopics: [EmergencyTopicModel] = sections.flatMap(\.topics)
 }
 
+===== Sources/AppModule/Features/Emergency/EmergencyHome/InfoView.swift =====
+import SwiftUI
+
+struct InfoView: View {
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        List {
+            purposeSection
+            helpSection
+            designSection
+            legalSection
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("About")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+                .accessibilityLabel("Close")
+            }
+        }
+    }
+
+    private var purposeSection: some View {
+        Section("Purpose") {
+            InfoRow(
+                title: "Step-by-step first aid guidance",
+                message: "Helps you respond quickly during dog emergencies. Works offline. " +
+                "Designed for high-stress situations. Always contact a veterinarian for professional care."
+            )
+        }
+    }
+
+    private var helpSection: some View {
+        Section("When to seek help") {
+            InfoRow(
+                title: "Contact a veterinarian immediately if",
+                message: "Your dog is unresponsive, seriously injured, breathing abnormally, or if you are unsure what to do."
+            )
+        }
+    }
+
+    private var designSection: some View {
+        Section("Design") {
+            InfoRow(
+                title: "Built for emergencies",
+                message: "Minimal, distraction-free interface optimized for clarity during stressful moments."
+            )
+        }
+    }
+
+    private var legalSection: some View {
+        Section {
+            Text("DogsAID provides general first aid information only and is not a substitute for " +
+                 "professional veterinary advice, diagnosis, or treatment.")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+        }
+    }
+}
+
+private struct InfoRow: View {
+    let title: String
+    let message: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.callout.weight(.semibold))
+            Text(message)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+        }
+        .padding(.vertical, 4)
+    }
+}
+
 ===== Sources/AppModule/Features/Emergency/Life-Threatening/Anaphylaxis.swift =====
-
-
 import SwiftUI
 
 struct AnaphylaxisView: View {
@@ -2266,7 +2400,8 @@ struct AnaphylaxisView: View {
         InfoStep(
             title: "CHECK FOR SWELLING",
             instruction: "Look for rapid facial swelling, hives, or sudden collapse. Check for difficulty breathing.",
-            audio: "Look for sudden swelling on the face, hives, or collapse. Check if the dog is struggling to breathe.",
+            audio: "Look for sudden swelling on the face, hives, or collapse. " +
+            "Check if the dog is struggling to breathe.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.75, green: 0.20, blue: 0.75)
         ),
@@ -2286,7 +2421,8 @@ struct AnaphylaxisView: View {
         ),
         InfoStep(
             title: "CALL VET NOW",
-            instruction: "Transport the dog to the vet immediately for life-saving medication. This is a critical emergency.",
+            instruction: "Transport the dog to the vet immediately for life-saving medication. " +
+            "This is a critical emergency.",
             audio: "Call the vet right now. Your dog needs immediate medication to open the airway.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.75, green: 0.15, blue: 0.75)
@@ -2311,8 +2447,6 @@ struct AnaphylaxisView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Life-Threatening/Bloat.swift =====
-
-
 import SwiftUI
 
 struct BloatView: View {
@@ -2320,7 +2454,8 @@ struct BloatView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "RECOGNIZE SYMPTOMS",
-            instruction: "Look for a hard, swollen belly and unproductive retching. Bloat is 100% fatal without immediate surgery.",
+            instruction: "Look for a hard, swollen belly and unproductive retching. " +
+            "Bloat is 100% fatal without immediate surgery.",
             audio: "Look for a swollen belly and gagging without vomiting. This is a fatal emergency.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.90, green: 0.25, blue: 0.25)
@@ -2384,14 +2519,16 @@ struct ChokingEmergencyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "RECOGNIZE CHOKING",
-            instruction: "Look for violent coughing, gasping, or blue gums. If the dog is still moving air, let them cough.",
+            instruction: "Look for violent coughing, gasping, or blue gums. " +
+            "If the dog is still moving air, let them cough.",
             audio: "Look for violent coughing or blue gums. If the dog can breathe, let them cough.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
         ),
         InfoStep(
             title: "INSPECT THE MOUTH",
-            instruction: "Open the mouth and look for an object. NEVER perform a blind finger sweep as you may push the object deeper.",
+            instruction: "Open the mouth and look for an object. " +
+            "NEVER perform a blind finger sweep as you may push the object deeper.",
             audio: "Open the mouth and look for an object. Do not reach blindly into the throat.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
@@ -2419,7 +2556,8 @@ struct ChokingEmergencyView: View {
         ),
         InfoStep(
             title: "EMERGENCY VET NOW",
-            instruction: "Seek vet care immediately even if the object is removed. Throat swelling or damage is invisible.",
+            instruction: "Seek vet care immediately even if the object is removed. " +
+            "Throat swelling or damage is invisible.",
             audio: "Drive to the emergency vet now. Internal throat damage is a major risk.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.88, green: 0.25, blue: 0.25)
@@ -2565,7 +2703,6 @@ struct CPRCycleView: View {
 
     @StateObject private var cpr = CPRCoordinator()
 
-
     @Environment(\.stopEmergencyAudio) private var stopEmergencyAudio
 
     var body: some View {
@@ -2622,7 +2759,6 @@ struct CPRCycleView: View {
 
             Button {
                 if cpr.phase == .idle {
-
                     stopEmergencyAudio()
                     cpr.toggle()
                 } else {
@@ -2640,19 +2776,16 @@ struct CPRCycleView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
-        .onChange(of: isPageVisible) { oldValue, newValue in
-            
+        .onChange(of: isPageVisible) { _, newValue in
             if !newValue { cpr.hardStop() }
         }
         .onDisappear {
-
             cpr.hardStop()
         }
     }
 }
 
 ===== Sources/AppModule/Features/Emergency/Life-Threatening/CPR/CPRStep.swift =====
-
 import SwiftUI
 
 // MARK: - CPRStepKind
@@ -2667,23 +2800,18 @@ public enum CPRStepKind {
 public struct CPRStep: Identifiable, EmergencyStep {
     public let id = UUID()
 
-
     public let title: String
     public let instruction: String
     public let audio: String
     public let illustrationColor: Color
     public let sizeGuidance: SizeGuidance?
 
-
     public let kind: CPRStepKind
-
 
     public let illustrationIcon: String?
 
-
     public var isInteractive: Bool { kind == .cpr }
 
-    
     public var isCPR: Bool { kind == .cpr }
 
     public init(
@@ -2706,7 +2834,6 @@ public struct CPRStep: Identifiable, EmergencyStep {
 }
 
 ===== Sources/AppModule/Features/Emergency/Life-Threatening/CPR/DogCPREmergencyView.swift =====
-
 import SwiftUI
 
 // MARK: - DogCPREmergencyView
@@ -2724,8 +2851,10 @@ struct DogCPREmergencyView: View {
         ),
         CPRStep(
             title: "CHECK FOR PULSE",
-            instruction: "Check for breathing and feel for a heartbeat behind the left elbow. DO NOT perform CPR if the dog is breathing or has a pulse.",
-            audio: "Check for breathing and feel for a heartbeat behind the left elbow. Do not perform CPR if the dog is breathing or has a pulse.",
+            instruction: "Check for breathing and feel for a heartbeat behind the left elbow. " +
+            "DO NOT perform CPR if the dog is breathing or has a pulse.",
+            audio: "Check for breathing and feel for a heartbeat behind the left elbow. " +
+            "Do not perform CPR if the dog is breathing or has a pulse.",
             illustrationIcon: "heart.fill",
             illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25),
             kind: .info
@@ -2740,8 +2869,10 @@ struct DogCPREmergencyView: View {
         ),
         CPRStep(
             title: "START CPR CYCLE",
-            instruction: "Perform 30 chest compressions followed by 2 breaths. Press down 1/3 of chest depth, 100-120 times per minute.",
-            audio: "Start the CPR cycle now. Give thirty compressions followed by two breaths. Push down firmly and fast.",
+            instruction: "Perform 30 chest compressions followed by 2 breaths. " +
+            "Press down 1/3 of chest depth, 100-120 times per minute.",
+            audio: "Start the CPR cycle now. Give thirty compressions followed by two breaths. " +
+            "Push down firmly and fast.",
             sizeGuidance: SizeGuidance(
                 smallDog: "Small dogs: Use one hand or two fingers.",
                 largeDog: "Large dogs: Use both hands, one on top of the other."
@@ -2752,7 +2883,8 @@ struct DogCPREmergencyView: View {
         ),
         CPRStep(
             title: "EMERGENCY TRANSPORT",
-            instruction: "Continue CPR without stopping while someone drives you to the vet. Do not stop until a professional takes over.",
+            instruction: "Continue CPR without stopping while someone drives you to the vet. " +
+            "Do not stop until a professional takes over.",
             audio: "Continue CPR while transporting the dog to the vet. Do not stop until help arrives.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15),
@@ -2762,7 +2894,6 @@ struct DogCPREmergencyView: View {
 
     var body: some View {
         EmergencyFlowView(steps: steps, navigationTitle: "Dog CPR") { step, isVisible in
-           
             if step.isInteractive {
                 CPRCycleView(isPageVisible: isVisible)
             }
@@ -2799,14 +2930,16 @@ struct DrowningEmergencyView: View {
         ),
         InfoStep(
             title: "CHECK BREATHING",
-            instruction: "If the dog is not breathing, begin CPR immediately. Check for a pulse behind the left elbow.",
+            instruction: "If the dog is not breathing, begin CPR immediately. " +
+            "Check for a pulse behind the left elbow.",
             audio: "If the dog is not breathing, start CPR now.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
             title: "PROVIDE BREATHS",
-            instruction: "Close the dog's mouth and breathe into the nose until the chest rises. Give 2 breaths every 30 compressions.",
+            instruction: "Close the dog's mouth and breathe into the nose until the chest rises. " +
+            "Give 2 breaths every 30 compressions.",
             audio: "Hold the muzzle closed and breathe into the nose.",
             illustrationIcon: "heart.fill",
             illustrationColor: Color(red: 0.95, green: 0.25, blue: 0.25)
@@ -2830,8 +2963,6 @@ struct DrowningEmergencyView: View {
 }
 
 ===== Sources/AppModule/Features/Emergency/Toxins & Injestion/FoodPoisoningView.swift =====
-
-
 import SwiftUI
 
 struct FoodPoisoningView: View {
@@ -2852,14 +2983,16 @@ struct FoodPoisoningView: View {
         ),
         InfoStep(
             title: "DO NOT INDUCE VOMITING",
-            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. Xylitol causes rapid blood sugar drops.",
+            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. " +
+            "Xylitol causes rapid blood sugar drops.",
             audio: "Do not make the dog vomit unless a vet tells you to.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
             title: "CALL VET",
-            instruction: "Provide the approximate time of ingestion and the amount consumed. Have the dog's weight ready.",
+            instruction: "Provide the approximate time of ingestion and the amount consumed. " +
+            "Have the dog's weight ready.",
             audio: "Call the vet with the time of ingestion and the amount eaten.",
             illustrationIcon: "phone.fill",
             illustrationColor: Color(red: 0.20, green: 0.55, blue: 0.85)
@@ -2951,7 +3084,6 @@ struct PlantPoisoningView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Toxins & Injestion/PoisonExposureView.swift =====
-
 import SwiftUI
 
 struct PoisonExposureView: View {
@@ -2972,8 +3104,10 @@ struct PoisonExposureView: View {
         ),
         InfoStep(
             title: "DO NOT INDUCE VOMITING",
-            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. Some toxins cause more damage when vomited.",
-            audio: "Do not make the dog vomit unless a vet tells you to. Some toxins cause more damage when vomited.",
+            instruction: "DO NOT induce vomiting unless specifically instructed by a veterinarian. " +
+            "Some toxins cause more damage when vomited.",
+            audio: "Do not make the dog vomit unless a vet tells you to. " +
+            "Some toxins cause more damage when vomited.",
             illustrationIcon: "xmark.octagon.fill",
             illustrationColor: Color(red: 0.85, green: 0.20, blue: 0.20)
         ),
@@ -3018,7 +3152,8 @@ struct SnakeBitesStingsView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "RECOGNIZE SYMPTOMS",
-            instruction: "Look for sudden yelping, rapid swelling, or weakness. Snake bites often cause immediate pain and bleeding.",
+            instruction: "Look for sudden yelping, rapid swelling, or weakness. " +
+            "Snake bites often cause immediate pain and bleeding.",
             audio: "Watch for sudden swelling, pain, or weakness.",
             illustrationIcon: "exclamationmark.triangle.fill",
             illustrationColor: Color(red: 0.85, green: 0.20, blue: 0.20)
@@ -3032,14 +3167,16 @@ struct SnakeBitesStingsView: View {
         ),
         InfoStep(
             title: "DO NOT CUT OR SUCK",
-            instruction: "DO NOT apply ice, do not cut the wound, and do not try to suck out venom. These actions worsen tissue damage.",
+            instruction: "DO NOT apply ice, do not cut the wound, and do not try to suck out venom. " +
+            "These actions worsen tissue damage.",
             audio: "Do not use ice or try to cut the wound. Go to the vet immediately.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
             title: "REMOVE COLLARS",
-            instruction: "Rapid swelling can make collars or harnesses dangerous. Remove any restrictive items near the bite.",
+            instruction: "Rapid swelling can make collars or harnesses dangerous. " +
+            "Remove any restrictive items near the bite.",
             audio: "Remove collars or tight items immediately.",
             illustrationIcon: "scissors",
             illustrationColor: Color(red: 0.45, green: 0.55, blue: 0.75)
@@ -3071,7 +3208,6 @@ struct SnakeBitesStingsView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Trauma & Injury/BleedingControlView.swift =====
-
 import SwiftUI
 
 struct BleedingControlView: View {
@@ -3079,7 +3215,8 @@ struct BleedingControlView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "APPLY PRESSURE",
-            instruction: "Use a clean cloth or bandage to apply firm, direct pressure to the wound for 5 minutes. DO NOT lift the cloth to check.",
+            instruction: "Use a clean cloth or bandage to apply firm, direct pressure to the wound for 5 minutes. " +
+            "DO NOT lift the cloth to check.",
             audio: "Use a clean cloth to apply firm pressure to the wound for five minutes.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
@@ -3093,21 +3230,24 @@ struct BleedingControlView: View {
         ),
         InfoStep(
             title: "BANDAGE SNUGLY",
-            instruction: "Wrap a bandage over the pressure cloth. Ensure it is snug but not tight enough to cut off circulation.",
+            instruction: "Wrap a bandage over the pressure cloth. " +
+            "Ensure it is snug but not tight enough to cut off circulation.",
             audio: "Wrap a bandage snugly over the wound.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.70, green: 0.55, blue: 0.75)
         ),
         InfoStep(
             title: "CHECK FOR SHOCK",
-            instruction: "Look for pale gums, rapid breathing, or weakness. These are signs of life-threatening blood loss.",
+            instruction: "Look for pale gums, rapid breathing, or weakness. " +
+            "These are signs of life-threatening blood loss.",
             audio: "Watch for pale gums or rapid breathing.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.95, green: 0.65, blue: 0.20)
         ),
         InfoStep(
             title: "EMERGENCY TRANSPORT",
-            instruction: "Transport the dog to the vet immediately. Do not wait for the bleeding to stop completely if it is severe.",
+            instruction: "Transport the dog to the vet immediately. " +
+            "Do not wait for the bleeding to stop completely if it is severe.",
             audio: "Drive to the vet immediately for professional wound care.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
@@ -3139,28 +3279,32 @@ struct ElectricShockView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "DISABLE POWER",
-            instruction: "Do NOT touch the dog until the power source is turned off. Use a wooden stick to move wires if needed.",
+            instruction: "Do NOT touch the dog until the power source is turned off. " +
+            "Use a wooden stick to move wires if needed.",
             audio: "Do not touch the dog until the power is off. Use a wooden object to move any live wires.",
             illustrationIcon: "bolt.fill",
             illustrationColor: Color(red: 0.95, green: 0.75, blue: 0.20)
         ),
         InfoStep(
             title: "CHECK BREATHING",
-            instruction: "Check for regular breathing and a pulse behind the left elbow. Begin CPR if the dog is not breathing.",
+            instruction: "Check for regular breathing and a pulse behind the left elbow. " +
+            "Begin CPR if the dog is not breathing.",
             audio: "Check for regular breathing and a pulse. Start CPR if needed.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.35, green: 0.55, blue: 0.85)
         ),
         InfoStep(
             title: "CHECK MOUTH",
-            instruction: "Inspect the mouth for burns and check for regular breathing. Look for charred or swollen tissue.",
+            instruction: "Inspect the mouth for burns and check for regular breathing. " +
+            "Look for charred or swollen tissue.",
             audio: "Check the mouth for burns and ensure the dog is breathing.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.30, green: 0.55, blue: 0.85)
         ),
         InfoStep(
             title: "MONITOR LUNGS",
-            instruction: "Electric shock can cause fluid to build up in the lungs hours later. Watch for coughing or gasping.",
+            instruction: "Electric shock can cause fluid to build up in the lungs hours later. " +
+            "Watch for coughing or gasping.",
             audio: "Watch for coughing or gasping, which can happen hours later.",
             illustrationIcon: "pause.circle.fill",
             illustrationColor: Color(red: 0.60, green: 0.55, blue: 0.75)
@@ -3199,7 +3343,8 @@ struct EyeInjuriesView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "PREVENT RUBBING",
-            instruction: "Prevent the dog from pawing or rubbing at the eye. Use an Elizabethan collar or hold their paws firmly.",
+            instruction: "Prevent the dog from pawing or rubbing at the eye. " +
+            "Use an Elizabethan collar or hold their paws firmly.",
             audio: "Stop the dog from scratching or rubbing their eye.",
             illustrationIcon: "eye.trianglebadge.exclamationmark.fill",
             illustrationColor: Color(red: 0.80, green: 0.20, blue: 0.30)
@@ -3213,7 +3358,8 @@ struct EyeInjuriesView: View {
         ),
         InfoStep(
             title: "KEEP EYE MOIST",
-            instruction: "If the eye is bulging or the eyelid cannot close, gently apply sterile saline or clean water to keep it moist.",
+            instruction: "If the eye is bulging or the eyelid cannot close, " +
+            "gently apply sterile saline or clean water to keep it moist.",
             audio: "Keep the eye moist with saline or clean water.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.60, green: 0.40, blue: 0.70)
@@ -3227,7 +3373,8 @@ struct EyeInjuriesView: View {
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "Eye injuries can lead to permanent blindness within hours. Transport the dog to the vet immediately.",
+            instruction: "Eye injuries can lead to permanent blindness within hours. " +
+            "Transport the dog to the vet immediately.",
             audio: "Drive to the vet immediately to save the dog's vision.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
@@ -3252,7 +3399,6 @@ struct EyeInjuriesView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Trauma & Injury/FracturesView.swift =====
-
 import SwiftUI
 
 struct FracturesView: View {
@@ -3260,7 +3406,8 @@ struct FracturesView: View {
     private let steps: [InfoStep] = [
         InfoStep(
             title: "ASSESS INJURY",
-            instruction: "Look for limping, swelling, or a visible deformity. Check if the leg dangles abnormally or won't bear weight.",
+            instruction: "Look for limping, swelling, or a visible deformity. " +
+            "Check if the leg dangles abnormally or won't bear weight.",
             audio: "Check for limping, swelling, or abnormal leg position.",
             illustrationIcon: "figure.walk",
             illustrationColor: Color(red: 0.95, green: 0.55, blue: 0.15)
@@ -3274,14 +3421,16 @@ struct FracturesView: View {
         ),
         InfoStep(
             title: "MUZZLE IF NEEDED",
-            instruction: "Even gentle dogs may bite when in severe pain. Muzzle if it does not interfere with breathing.",
+            instruction: "Even gentle dogs may bite when in severe pain. " +
+            "Muzzle if it does not interfere with breathing.",
             audio: "Use a muzzle if the dog is in pain, but only if they can breathe easily.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.75, green: 0.35, blue: 0.35)
         ),
         InfoStep(
             title: "PREVENT DAMAGE",
-            instruction: "Carry the dog or use a sling to prevent them from putting weight on the injury. No jumping or stairs.",
+            instruction: "Carry the dog or use a sling to prevent them from putting weight on the injury. " +
+            "No jumping or stairs.",
             audio: "Carry the dog to the car. Do not let them walk on the injury.",
             illustrationIcon: "hand.point.up.fill",
             illustrationColor: Color(red: 0.40, green: 0.65, blue: 0.90)
@@ -3306,7 +3455,7 @@ struct FracturesView: View {
         EmergencyFlowView(
             steps: steps,
             navigationTitle: "Fractures & Sprains",
-            paginationAccentColor: Color(red: 0.95, green: 0.55, blue: 0.15) 
+            paginationAccentColor: Color(red: 0.95, green: 0.55, blue: 0.15)
         )
     }
 }
@@ -3320,8 +3469,6 @@ struct FracturesView_Previews: PreviewProvider {
 }
 
 ===== Sources/AppModule/Features/Emergency/Trauma & Injury/HitbyCar.swift =====
-
-
 import SwiftUI
 
 struct HitByCarView: View {
@@ -3343,7 +3490,8 @@ struct HitByCarView: View {
         ),
         InfoStep(
             title: "CONTROL BLEEDING",
-            instruction: "Apply firm, direct pressure to any visible wounds with a clean cloth. Do not lift the cloth to check.",
+            instruction: "Apply firm, direct pressure to any visible wounds with a clean cloth. " +
+            "Do not lift the cloth to check.",
             audio: "Apply firm pressure to any bleeding wounds.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.82, green: 0.22, blue: 0.28)
@@ -3381,9 +3529,7 @@ struct HitByCarView_Previews: PreviewProvider {
     }
 }
 
-
 ===== Sources/AppModule/Features/Emergency/Trauma & Injury/TemperatureBurnsView.swift =====
-
 import SwiftUI
 
 struct TemperatureBurnsView: View {
@@ -3412,7 +3558,8 @@ struct TemperatureBurnsView: View {
         ),
         InfoStep(
             title: "PREVENT LICKING",
-            instruction: "Do not let the dog lick or bite at the burned area. Use a muzzle or Elizabethan collar if necessary.",
+            instruction: "Do not let the dog lick or bite at the burned area. " +
+            "Use a muzzle or Elizabethan collar if necessary.",
             audio: "Stop the dog from licking or biting the burn.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.95, green: 0.45, blue: 0.20)
@@ -3438,7 +3585,7 @@ struct TemperatureBurnsView: View {
 struct TemperatureBurnsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-        TemperatureBurnsView()
+            TemperatureBurnsView()
         }
     }
 }
@@ -3475,6 +3622,8 @@ enum EmergencyIntent: Hashable {
     case urinaryBlockage
     case pregnancy
     case vomiting
+
+    case unknownEmergency
 }
 
 struct EmergencyIntentResolver {
@@ -3506,56 +3655,62 @@ struct EmergencyIntentResolver {
 
         .urinaryBlockage: ["cannot pee", "straining to urinate", "urinary blockage"],
         .pregnancy: ["pregnant", "labor", "whelping"],
-        .vomiting: ["vomiting", "threw up", "nausea"]
+        .vomiting: ["vomiting", "threw up", "nausea"],
+        .unknownEmergency: [
+            "help",
+            "emergency",
+            "something wrong",
+            "not acting normal",
+            "i don't know",
+            "dont know",
+            "unknown",
+            "urgent"
+        ]
     ]
 
     static func resolve(from input: String) -> EmergencyIntent? {
         let normalized = normalize(input)
-        for (intent, keywords) in keywordMap {
-            if keywords.contains(where: { normalized.contains($0) }) {
-                return intent
-            }
+        for (intent, keywords) in keywordMap where keywords.contains(where: { normalized.contains($0) }) {
+            return intent
         }
         return nil
     }
 
     static func route(for intent: EmergencyIntent) -> EmergencyRoute {
-        switch intent {
-        case .dogCPR:               return .dogCPR
-        case .choking:              return .choking
-        case .drowning:             return .drowning
-        case .bloat:                return .bloat
-        case .anaphylaxis:          return .anaphylaxis
-
-        case .bleeding:             return .bleedingControl
-        case .fractures:            return .fractures
-        case .hitByCar:             return .hitByCar
-        case .temperature:          return .temperatureBurns
-        case .electricShock:        return .electricShock
-        case .eyeInjuries:          return .eyeInjuries
-
-        case .poisonExposure:       return .poisonExposure
-        case .plantPoisoning:       return .plantPoisoning
-        case .foodPoisoning:        return .foodPoisoning
-        case .snakeBitesStings:     return .snakeBitesStings
-
-        case .seizures:             return .seizures
-        case .heatstroke:           return .heatstroke
-        case .frostbiteHypothermia: return .frostbiteHypothermia
-        case .blueGums:             return .blueGums
-        case .breathingDifficulty:  return .breathingDifficulty
-
-        case .urinaryBlockage:      return .urinaryBlockage
-        case .pregnancy:            return .pregnancyWhelping
-        case .vomiting:             return .vomiting
-        }
+        let mapping: [EmergencyIntent: EmergencyRoute] = [
+            .dogCPR: .dogCPR,
+            .choking: .choking,
+            .drowning: .drowning,
+            .bloat: .bloat,
+            .anaphylaxis: .anaphylaxis,
+            .bleeding: .bleedingControl,
+            .fractures: .fractures,
+            .hitByCar: .hitByCar,
+            .temperature: .temperatureBurns,
+            .electricShock: .electricShock,
+            .eyeInjuries: .eyeInjuries,
+            .poisonExposure: .poisonExposure,
+            .plantPoisoning: .plantPoisoning,
+            .foodPoisoning: .foodPoisoning,
+            .snakeBitesStings: .snakeBitesStings,
+            .seizures: .seizures,
+            .heatstroke: .heatstroke,
+            .frostbiteHypothermia: .frostbiteHypothermia,
+            .blueGums: .blueGums,
+            .breathingDifficulty: .breathingDifficulty,
+            .urinaryBlockage: .urinaryBlockage,
+            .pregnancy: .pregnancyWhelping,
+            .vomiting: .vomiting,
+            .unknownEmergency: .dogCPR
+        ]
+        return mapping[intent] ?? .dogCPR
     }
 
     private static func normalize(_ input: String) -> String {
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = input.lowercased()
         var result = ""
-        tagger.enumerateTags(in: input.startIndex..<input.endIndex, unit: .word, scheme: .lemma) { tag, range in
+        tagger.enumerateTags(in: input.startIndex..<input.endIndex, unit: .word, scheme: .lemma) { tag, _ in
             if let lemma = tag?.rawValue {
                 result.append(lemma)
                 result.append(" ")
@@ -3567,7 +3722,6 @@ struct EmergencyIntentResolver {
 }
 
 ===== Sources/AppModule/SharedUI/ConfettiView.swift =====
-
 import SwiftUI
 import UIKit
 
@@ -3644,7 +3798,6 @@ struct ConfettiView: UIViewRepresentable {
 }
 
 ===== Sources/AppModule/SharedUI/InfoBanner.swift =====
-
 import SwiftUI
 
 struct InfoBanner: View {
@@ -3661,7 +3814,6 @@ struct InfoBanner: View {
 }
 
 ===== Sources/AppModule/SharedUI/SectionCard.swift =====
-
 import SwiftUI
 
 struct SectionCard<Content: View>: View {

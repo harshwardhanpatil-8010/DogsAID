@@ -4,40 +4,42 @@ struct EyeInjuriesView: View {
 
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "PREVENT RUBBING",
-            instruction: "Prevent the dog from pawing or rubbing at the eye. " +
-            "Use an Elizabethan collar or hold their paws firmly.",
-            audio: "Stop the dog from scratching or rubbing their eye.",
+            title: "STOP THE PAW",
+            instruction: "Hold the dog's paws or put socks on them to stop the dog from scratching the eye. " +
+            "Rubbing the eye can cause an eyeball to rupture.",
+            audio: "Hold the dog's paws. Do not let them scratch or rub the eye.",
             illustrationIcon: "eye.trianglebadge.exclamationmark.fill",
             illustrationColor: Color(red: 0.80, green: 0.20, blue: 0.30)
         ),
         InfoStep(
-            title: "FLUSH CHEMICALS",
-            instruction: "If a chemical is in the eye, flush with sterile saline or plain water for 15 minutes.",
-            audio: "If chemicals got into the eye, flush it with water for fifteen minutes.",
+            title: "FLUSH WITH SALINE",
+            instruction: "If the eye is dirty or has a chemical in it, hold the eyelid open and pour " +
+            "sterile saline or clean water across the eye for 15 minutes.",
+            audio: "Hold the eyelid open and pour clean water across the eye for fifteen minutes.",
             illustrationIcon: "drop.fill",
             illustrationColor: Color(red: 0.25, green: 0.55, blue: 0.85)
         ),
         InfoStep(
-            title: "KEEP EYE MOIST",
-            instruction: "If the eye is bulging or the eyelid cannot close, " +
-            "gently apply sterile saline or clean water to keep it moist.",
-            audio: "Keep the eye moist with saline or clean water.",
+            title: "KEEP THE EYE MOIST",
+            instruction: "If the eyeball is bulging out of the socket, DO NOT try to push it back in. " +
+            "Cover it with a clean, soaking-wet cloth to keep it from drying out.",
+            audio: "If the eye is bulging, cover it with a very wet cloth. Do not push on the eye.",
             illustrationIcon: "hand.raised.fill",
             illustrationColor: Color(red: 0.60, green: 0.40, blue: 0.70)
         ),
         InfoStep(
-            title: "SHIELD THE EYE",
-            instruction: "Loosely cover the eye with a clean, damp cloth. DO NOT apply any pressure to the eyeball.",
-            audio: "Loosely cover the eye without applying any pressure.",
+            title: "DO NOT USE DROPS",
+            instruction: "DO NOT use human eye drops or redness relievers. These contain chemicals " +
+            "that can cause permanent blindness in a damaged dog eye.",
+            audio: "Do not use any human eye drops. They can cause permanent blindness.",
             illustrationIcon: "bandage.fill",
             illustrationColor: Color(red: 0.45, green: 0.55, blue: 0.55)
         ),
         InfoStep(
             title: "EMERGENCY VET CARE",
-            instruction: "Eye injuries can lead to permanent blindness within hours. " +
-            "Transport the dog to the vet immediately.",
-            audio: "Drive to the vet immediately to save the dog's vision.",
+            instruction: "EMERGENCY. Drive to the vet now. A scratched or punctured eye can be lost " +
+            "within 2 hours if not treated by a specialist.",
+            audio: "Drive to the vet now. Eye injuries can cause permanent blindness in less than two hours.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

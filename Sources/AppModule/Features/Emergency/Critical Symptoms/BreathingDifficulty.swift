@@ -3,40 +3,42 @@ import SwiftUI
 struct BreathingDifficultyView: View {
     private let steps: [InfoStep] = [
         InfoStep(
-            title: "REDUCE STRESS",
-            instruction: "Keep the dog still and calm. Do not force the dog into any specific position.",
-            audio: "Keep your dog very calm. Do not force them to move or change positions.",
-            illustrationIcon: "hand.raised.fill",
-            illustrationColor: Color(red: 0.90, green: 0.60, blue: 0.10)
-        ),
-        InfoStep(
-            title: "OBSERVE BREATHING",
-            instruction: "Watch for labored breathing, gasping, or using the belly to breathe. " +
-            "These are signs of a major emergency.",
-            audio: "Watch for gasping or heavy breathing effort.",
+            title: "OBSERVE THE CHEST",
+            instruction: "Watch the chest and abdomen. If the stomach is sucking in and out forcefully " +
+            "with every breath, or the nostrils are flaring, this is an EMERGENCY.",
+            audio: "Watch the belly. If it is sucking in and out forcefully, your dog is in respiratory distress.",
             illustrationIcon: "eye.fill",
             illustrationColor: Color(red: 0.40, green: 0.55, blue: 0.95)
         ),
         InfoStep(
-            title: "CHECK GUM COLOR",
-            instruction: "Check if the gums are blue or purple, which indicates a severe lack of oxygen.",
-            audio: "Check if the gums are blue or purple.",
+            title: "DO NOT RESTRAIN",
+            instruction: "Do not force the dog to lie down or move. Let the dog stay in whatever position " +
+            "helps them breathe, usually standing with elbows turned out.",
+            audio: "Do not force the dog to move. Let them stand or sit in whatever position is easiest for them.",
+            illustrationIcon: "hand.raised.fill",
+            illustrationColor: Color(red: 0.90, green: 0.60, blue: 0.10)
+        ),
+        InfoStep(
+            title: "CHECK FOR OBSTRUCTION",
+            instruction: "Open the mouth and look into the back of the throat for any toys, balls, or food. " +
+            "If you see an object, follow Choking instructions.",
+            audio: "Look into the back of the throat for an object. If you see one, follow choking steps.",
             illustrationIcon: "mouth.fill",
             illustrationColor: Color(red: 0.80, green: 0.30, blue: 0.20)
         ),
         InfoStep(
-            title: "ALLOW COUGHING",
-            instruction: "If the dog is coughing but still breathing, allow them to continue. " +
-            "Do not reach into the throat.",
-            audio: "If the dog can breathe, let them cough.",
+            title: "KEEP COOL",
+            instruction: "Keep the dog cool. High body temperature makes breathing harder. " +
+            "Do not wrap them in blankets or hold them tightly.",
+            audio: "Keep the dog cool. Do not wrap them in blankets or hold them.",
             illustrationIcon: "lungs.fill",
             illustrationColor: Color(red: 0.55, green: 0.75, blue: 0.95)
         ),
         InfoStep(
-            title: "SEEK VET CARE",
-            instruction: "Labored breathing requires immediate veterinary intervention. " +
-            "Transport the dog to the vet now.",
-            audio: "If your dog is struggling to breathe, go to the vet immediately.",
+            title: "EMERGENCY VET CARE",
+            instruction: "EMERGENCY. Transport the dog to the vet immediately. Labored breathing " +
+            "can lead to sudden heart failure.",
+            audio: "Go to the vet immediately. Labored breathing is a life-threatening emergency.",
             illustrationIcon: "cross.case.fill",
             illustrationColor: Color(red: 0.85, green: 0.15, blue: 0.15)
         )

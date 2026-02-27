@@ -85,7 +85,12 @@ enum EmergencyTopicCatalog {
     ]
 
     static let toxinsAndIngestion: [EmergencyTopicModel] = [
-        .init(title: "Poison Exposure", icon: "exclamationmark.triangle.fill", iconColor: .purple, route: .poisonExposure),
+        .init(
+            title: "Poison Exposure",
+            icon: "exclamationmark.triangle.fill",
+            iconColor: .purple,
+            route: .poisonExposure
+        ),
         .init(title: "Plant Poisoning", icon: "leaf.fill", iconColor: .green, route: .plantPoisoning),
         .init(title: "Food Poisoning", icon: "pills.fill", iconColor: .purple, route: .foodPoisoning),
         .init(title: "Snake Bites & Stings", icon: "ant.fill", iconColor: .red, route: .snakeBitesStings)
